@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="aureliya.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>AERONEXA</title>
 </head>
 
@@ -17,7 +18,7 @@
                 <span class="nav-title">AERONEXA</span>
             </div>
             <ul class="nav-menu">
-                <li><a href="homepage.html" class="nav-link active" onclick="setActive(this)">HOME</a></li>
+                <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
                 <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
                 <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
                 <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
@@ -28,14 +29,17 @@
 
     <script>
         function setActive(element) {
-            // Remove active class from all nav links
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Add active class to clicked link
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             element.classList.add('active');
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const path = location.pathname.split('/').pop() || 'homepage.html';
+            document.querySelectorAll('.nav-link').forEach(link => {
+                if (link.getAttribute('href') === path) link.classList.add('active');
+                else link.classList.remove('active');
+            });
+        });
     </script>
 </body>
 </html>

@@ -1,0 +1,87 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="aero.css" />
+    <title>AERONEXA</title>
+</head>
+<body>
+    <!-- Login Section -->
+    <div id="login-section" class="slide">
+        <img class="airplane-img" src="airplane.c.png" alt="Airplane" />
+        <img class="logo-img" src="aero.logo.png" alt="Logo" />
+
+        <div class="text-wrapper">AERO</div>
+        <div class="div">NEXA</div>
+
+        <p class="p">Ready to take off and explore?</p>
+
+        <input class="email-bar" type="email" placeholder="Email" autocomplete="email" />
+        <input class="password-bar" type="password" placeholder="Password" autocomplete="current-password" />
+
+        <button class="login-button" type="button" onclick="handleLogin()">Log in</button>
+        
+        <div class="text-wrapper-5">Forgot your password?</div>
+        <div class="text-wrapper-6">Don't have an account?</div>
+        <div class="text-wrapper-7">Sign up</div>
+    </div>
+
+    <!-- Home Section -->
+    <div id="home-section" class="home-section" style="display: none;">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
+                <span class="nav-title">AERONEXA</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="homepage.html" class="nav-link active" onclick="setActive(this)">HOME</a></li>
+                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
+                <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
+                <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
+                <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+            </ul>
+        </nav>
+      
+    <script>
+        function handleLogin() {
+            const emailInput = document.querySelector('.email-bar');
+            const passwordInput = document.querySelector('.password-bar');
+
+            // Basic validation
+            if (emailInput.value.trim() === '' || passwordInput.value.trim() === '') {
+                alert('Please enter both email and password');
+                return;
+            }
+
+            // Hide login section and show home section
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('home-section').style.display = 'flex';
+        }
+
+        function handleLogout() {
+            // Clear inputs
+            document.querySelector('.email-bar').value = '';
+            document.querySelector('.password-bar').value = '';
+
+            // Show login section and hide home section
+            document.getElementById('login-section').style.display = 'block';
+            document.getElementById('home-section').style.display = 'none';
+        }
+
+        function setActive(element) {
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked link
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
+

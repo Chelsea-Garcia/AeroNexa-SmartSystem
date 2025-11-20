@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="aureliya.css" />
+    <title>AERONEXA</title>
+</head>
+
+<body>
+<!-- Home Section -->
+    <div id="home-section" class="home-section">
+        <!-- Navigation Bar -->
+        <nav class="navbar">
+            <div class="nav-logo">
+                <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
+                <span class="nav-title">AERONEXA</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="homepage.html" class="nav-link active" onclick="setActive(this)">HOME</a></li>
+                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
+                <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
+                <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
+                <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+            </ul>
+        </nav>
+
+
+    <script>
+        function setActive(element) {
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked link
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>

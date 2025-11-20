@@ -25,19 +25,24 @@ html, body {
     flex-direction: column;
 }
 
+/* =======================================
+   Navbar
+======================================= */
 .navbar {
     width: 100%;
     height: 80px;
-    background: linear-gradient(90deg, #037FBE 0%, #04498D 0%, #2967A3 8%,  #88B5DC 15%, #DFDFDF 23%, #FFFFFF 50%, #DFDFDF
-    77%, #88B5DC 85%, #037FBE 92%, #04498D 100%);
+    background: linear-gradient(90deg, #037FBE 0%, #04498D 0%, #2967A3 8%, #88B5DC 15%, #DFDFDF 23%, #FFFFFF 50%, #DFDFDF 77%, #88B5DC 85%, #037FBE 92%, #04498D 100%);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 40px;
     box-sizing: border-box;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: visible; /* allow scaled hover */
+    z-index: 10;
 }
 
+/* Logo */
 .nav-logo {
     display: flex;
     align-items: center;
@@ -45,50 +50,58 @@ html, body {
 }
 
 .nav-logo-img {
-    width: 50px;
-    height: 50px;
+    width: 40px;
+    height: auto;
     object-fit: cover;
 }
 
 .nav-title {
-    font-family: "poppins-bold", helvetica;
-    font-size: 24px;
+    font-family: "poppins", helvetica;
+    font-size: 18px;
     font-weight: 700;
     color: #ffffff;
 }
 
+/* Menu */
 .nav-menu {
     display: flex;
     list-style: none;
-    margin: 300px;
-    padding: 150px;
-    gap: 30px;
-    flex: 1;
+    margin: 0 auto; /* center the navigation menu */
+  
+    gap: 30px; /* spacing between links */
+    align-items: center;
+}
+
+.nav-menu li {
+    display: inline-block; /* li acts as container */
 }
 
 .nav-link {
-    font-family: "poppins-regular", helvetica;
-    font-size: 18px;
+    font-family: "poppins", helvetica;
+    font-size: 15px;
     color: #000000;
     text-decoration: none;
-    padding: 8px 20px;
-    border-radius: 5px;
+    padding: 8px 20px; /* increase hoverable area */
+    border-radius: 30px;
     transition: all 0.3s ease;
     cursor: pointer;
+    display: inline-block; /* allow transform & background */
 }
 
 .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    color: #FFEC3D; /* yellow hover */
+    font-weight: 600; /* valid weight */
     transform: scale(1.05);
 }
 
 .nav-link.active {
     color: #d4070f;
+    font-weight: 700;
     text-decoration: underline;
     text-underline-offset: 8px;
     text-decoration-thickness: 3px;
-    font-weight: 700;
 }
+
 
 /* Hero Section */
 .hero-section {
@@ -108,7 +121,7 @@ html, body {
 }
 
 .hero-title {
-    font-family: "poppins-bold", helvetica;
+    font-family: "poppins", helvetica;
     font-size: 80px;
     font-weight: 700;
     color: #037FBE;
@@ -148,10 +161,11 @@ html, body {
     width: 120vh;
     object-fit: contain;
     position: absolute;
-    z-index: 5;
+    z-index: 1;
     margin-left: -150px;
     margin-top: -200px;
     display: block;
+    pointer-events: none;
 }
 
 .hero-right {
@@ -165,11 +179,12 @@ html, body {
 }
 
 .hero-headline {
-    font-family: "poppins-bold", helvetica;
-    font-size: 80px;
+    font-family: "poppins", helvetica;
+    font-size: 50px;
     font-weight: 700;
     color: #d4070f;
-    margin: 0 0 40px 0;
+    margin-bottom: 40px;
+    margin-top: 120px;
     line-height: 1.3;
     text-transform: uppercase;
     display: flex;
@@ -186,8 +201,9 @@ html, body {
     background-color: #ffffff;
     border: 3px solid #d4070f;
     color: #d4070f;
-    padding: 15px 40px;
-    font-family: "poppins-bold", helvetica;
+    padding: 15px;
+    margin-left: 43px;
+    font-family: "poppins", helvetica;
     font-size: 12px;
     font-weight: 700;
     cursor: pointer;
@@ -224,7 +240,7 @@ html, body {
 }
 
 .about-title {
-    font-family: "poppins-bold", helvetica;
+    font-family: "poppins", helvetica;
     font-size: 36px;
     font-weight: 700;
     color: #037FBE;
@@ -244,7 +260,7 @@ html, body {
 }
 
 .about-text {
-    font-family: "poppins-regular", helvetica;
+    font-family: "poppins", helvetica;
     font-size: 14px;
     color: #555555;
     line-height: 1.8;

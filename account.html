@@ -655,16 +655,12 @@
                 e.preventDefault(); 
                 const targetId = this.getAttribute('data-target');
 
-                // 1. Remove 'active' class from all menu items
                 menuItems.forEach(i => i.classList.remove('active'));
-                
-                // 2. Add 'active' class to the clicked menu item
+
                 this.classList.add('active');
 
-                // 3. Hide all content sections
                 contentSections.forEach(section => section.classList.add('hidden'));
 
-                // 4. Show the target content section
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
                     targetElement.classList.remove('hidden');
@@ -696,18 +692,14 @@
                 if (dashLocation) dashLocation.textContent = [address, city, state, zip, country].filter(Boolean).join(', ');
 
                 const dashPhone = document.getElementById('dash-phone');
-                // phone input not present in form; keep existing value
 
-                // Update passenger name in history and upcoming travel cards
                 const passengerEls = document.querySelectorAll('.passenger-name');
                 passengerEls.forEach(el => el.textContent = fullName || '—');
 
-                // Optionally show a small confirmation
                 alert('Profile updated and synced to Dashboard & History.');
             });
         }
 
-        // --- Photo chooser + preview handling ---
         (function(){
             const chooseBtn = document.getElementById('choose-photo');
             const fileInput = document.getElementById('profile-photo-input');

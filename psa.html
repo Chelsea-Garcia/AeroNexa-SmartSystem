@@ -3,43 +3,294 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="aureliya.css" />
+    <link rel="stylesheet" href="psa.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>AERONEXA</title>
+    <title>AERONEXA - Book Flight</title>
 </head>
 
 <body>
-<!-- Home Section -->
-    <div id="home-section" class="home-section">
-        <!-- Navigation Bar -->
-        <nav class="navbar">
-            <div class="nav-logo">
-                <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
-                <span class="nav-title">AERONEXA</span>
+
+<nav class="navbar">
+    <div class="nav-logo">
+        <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
+        <span class="nav-title">AERONEXA</span>
+    </div>
+    <ul class="nav-menu">
+        <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
+        <li><a href="psa.html" class="nav-link active" onclick="setActive(this)">PHILLIPINE SKY AIRWAY</a></li>
+        <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
+        <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
+        <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+    </ul>
+    <div class="nav-profile">
+        <a href="#">
+            <img src="profile.png" alt="User Profile" class="profile-icon">
+        </a>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT: Filter row + booking layout -->
+<div class="page-wrap">
+
+    <div class="filter-bar" role="region" aria-label="flight search filters">
+        <div class="filter-item">
+            <label for="trip-type">Type</label>
+            <div class="select-wrapper">
+                <select id="trip-type">
+                    <option value="oneway">One way</option>
+                    <option value="round">Round trip</option>
+                </select>
             </div>
-            <ul class="nav-menu">
-                <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
-                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
-                <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
-                <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
-                <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
-            </ul>
-        </nav>
+        </div>
 
+        <div class="filter-item">
+            <label for="from">From</label>
+            <div class="select-wrapper">
+                <select id="from">
+                    <option value="">Any</option>
+                    <option>Manila</option>
+                    <option>Clark</option>
+                    <option>Cebu</option>
+                    <option>Davao</option>
+                    <option>Iloilo</option>
+                </select>
+            </div>
+        </div>
 
-    <script>
-        function setActive(element) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            element.classList.add('active');
+        <div class="filter-item">
+            <label for="to">To</label>
+            <div class="select-wrapper">
+                <select id="to">
+                    <option value="">Any</option>
+                    <option>Manila</option>
+                    <option>Clark</option>
+                    <option>Cebu</option>
+                    <option>Davao</option>
+                    <option>Iloilo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <label for="cabin">Class</label>
+            <div class="select-wrapper">
+                <select id="cabin">
+                    <option>Economy</option>
+                    <option>Premium Economy</option>
+                    <option>Business</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <label for="departure">Departure</label>
+            <input id="departure" type="date" />
+        </div>
+
+        <div class="filter-action">
+            <button id="search-btn" class="search-btn">Search</button>
+        </div>
+    </div>
+
+    <div class="booking-container" id="booking-container">
+
+        <div class="packages-panel">
+            <h2 class="panel-title">TRAVEL PACKAGES</h2>
+            <div class="package-card">
+                <h4>Palawan Getaway</h4>
+                <p class="package-meta">5 days, 4 nights. Incl. flight & hotel.</p>
+                <div class="package-price">₱18,000</div>
+            </div>
+            <div class="package-card">
+                <h4>Bohol Adventure</h4>
+                <p class="package-meta">3 days, 2 nights. Incl. ferry & tour.</p>
+                <div class="package-price">₱12,500</div>
+            </div>
+        </div>
+
+        <div class="left-panel">
+            <h2 class="panel-title">FLIGHTS</h2>
+
+            <div class="flight-card" data-route="Manila → Cebu">
+                <div class="flight-info">
+                    <h3>Manila → Cebu</h3>
+                    <p class="time">08:00 — 09:30</p>
+                    <p class="meta">Economy • 1h 30m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱1,450</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+
+            <div class="flight-card" data-route="Manila → Davao">
+                <div class="flight-info">
+                    <h3>Manila → Davao</h3>
+                    <p class="time">10:00 — 12:00</p>
+                    <p class="meta">Economy • 2h 00m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱2,100</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+
+            <div class="flight-card" data-route="Clark → Iloilo">
+                <div class="flight-info">
+                    <h3>Clark → Iloilo</h3>
+                    <p class="time">14:00 — 15:20</p>
+                    <p class="meta">Economy • 1h 20m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱1,200</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+
+            <div class="flight-card" data-route="Cebu → Manila">
+                <div class="flight-info">
+                    <h3>Cebu → Manila</h3>
+                    <p class="time">16:30 — 18:00</p>
+                    <p class="meta">Economy • 1h 30m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱1,450</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel hidden" id="right-panel">
+            <button class="close-btn" id="close-details-panel" aria-label="Close Details Panel">&times;</button>
+            
+            <div class="tab-header">
+                <div id="tab-details" class="tab-active" onclick="switchTab('details')">DETAILS</div>
+                <div id="tab-fares" onclick="switchTab('fares')">FARES</div>
+            </div>
+
+            <div id="details-content" class="tab-content">
+                <h3 class="muted">Select a flight to view details</h3>
+            </div>
+
+            <div id="fares-content" class="tab-content hidden">
+                <h4 class="muted">No fare selected</h4>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-bottom">
+        <p>&copy; 2025 AERONEXA. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // --- Utility Functions ---
+
+    function setActive(element) {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    function closeDetailsPanel() {
+        const rightPanel = document.getElementById('right-panel');
+        const bookingContainer = document.getElementById('booking-container'); 
+
+        if (rightPanel && bookingContainer) {
+            rightPanel.classList.add('hidden');
+            bookingContainer.classList.remove('three-column');
         }
+    }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const path = location.pathname.split('/').pop() || 'homepage.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === path) link.classList.add('active');
-                else link.classList.remove('active');
-            });
+    function switchTab(tab) {
+        document.getElementById("tab-details").classList.remove("tab-active");
+        document.getElementById("tab-fares").classList.remove("tab-active");
+        document.getElementById("details-content").classList.add("hidden");
+        document.getElementById("fares-content").classList.add("hidden");
+
+        if (tab === "details") {
+            document.getElementById("tab-details").classList.add("tab-active");
+            document.getElementById("details-content").classList.remove("hidden");
+        } else {
+            document.getElementById("tab-fares").classList.add("tab-active");
+            document.getElementById("fares-content").classList.remove("hidden");
+        }
+    }
+
+    // --- Core Logic ---
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const path = location.pathname.split('/').pop() || 'psa.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === path) link.classList.add('active');
+            else link.classList.remove('active');
         });
-    </script>
+
+        document.getElementById('close-details-panel').addEventListener('click', closeDetailsPanel);
+    });
+
+    document.querySelectorAll('.flight-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const rightPanel = document.getElementById('right-panel');
+            const bookingContainer = document.getElementById('booking-container'); 
+            
+            if (rightPanel && bookingContainer) {
+                rightPanel.classList.remove('hidden');
+                bookingContainer.classList.add('three-column'); 
+            }
+            
+            const route = card.getAttribute('data-route') || card.querySelector('h3').innerText;
+            const time = card.querySelector('.time').innerText;
+            const fare = card.querySelector('.fare').innerText;
+            const meta = card.querySelector('.meta').innerText;
+
+            document.getElementById('details-content').innerHTML = `
+                <h2>${route}</h2>
+                <p><strong>Time:</strong> ${time}</p>
+                <p><strong>Info:</strong> ${meta}</p>
+                <p><strong>Lowest fare:</strong> ${fare}</p>
+                <button class="book-btn" style="margin-top:12px;">Proceed to Book</button>
+            `;
+
+            switchTab('details');
+        });
+    });
+
+    document.getElementById('search-btn').addEventListener('click', () => {
+        const from = document.getElementById('from').value.trim();
+        const to = document.getElementById('to').value.trim();
+        const rightPanel = document.getElementById('right-panel');
+        const bookingContainer = document.getElementById('booking-container');
+        
+        const cards = Array.from(document.querySelectorAll('.flight-card'));
+        let anyVisible = false;
+
+        cards.forEach(card => {
+            const route = card.getAttribute('data-route') || card.innerText;
+            const matchesFrom = !from || route.includes(from);
+            const matchesTo = !to || route.includes(to);
+            if (matchesFrom && matchesTo) {
+                card.style.display = 'flex';
+                anyVisible = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (rightPanel && bookingContainer) {
+            if (!anyVisible) {
+                closeDetailsPanel();
+                document.getElementById('details-content').innerHTML = `<h3 class="muted">No flights found for your search</h3>`;
+            } else {
+                closeDetailsPanel(); 
+                document.getElementById('details-content').innerHTML = `<h3 class="muted">Showing search results. Select a flight for details.</h3>`;
+            }
+            switchTab('details');
+            rightPanel.classList.remove('hidden');
+        }
+    });
+</script>
 </body>
 </html>

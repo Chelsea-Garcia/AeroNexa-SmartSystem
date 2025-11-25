@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="aero.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>AERONEXA</title>
 </head>
 <body>
@@ -73,19 +72,14 @@
         }
 
         function setActive(element) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            // Remove active class from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Add active class to clicked link
             element.classList.add('active');
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const path = location.pathname.split('/').pop() || 'homepage.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === path) link.classList.add('active');
-                else link.classList.remove('active');
-            });
-        });
     </script>
 </body>
 </html>
-
-

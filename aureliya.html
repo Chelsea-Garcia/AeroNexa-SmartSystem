@@ -10,21 +10,20 @@
 
 <body>
 
-    <!-- TOP NAVBAR (AERONEXA — UNCHANGED) -->
     <nav class="navbar">
         <div class="nav-logo">
             <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
             <span class="nav-title">AERONEXA</span>
         </div>
         <ul class="nav-menu">
-            <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
-            <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILLIPINE SKY AIRWAY</a></li>
-            <li><a href="aureliya.html" class="nav-link active" onclick="setActive(this)">AURELI-YA!</a></li>
-            <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
-            <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+            <li><a href="homepage.html" class="nav-link">HOME</a></li>
+            <li><a href="psa.html" class="nav-link">PHILLIPINE SKY AIRWAY</a></li>
+            <li><a href="aureliya.html" class="nav-link active">AURELI-YA!</a></li>
+            <li><a href="trutravel.html" class="nav-link">TRUTRAVEL</a></li>
+            <li><a href="skyroute.html" class="nav-link">SKYROUTE</a></li>
         </ul>
         <div class="nav-profile">
-            <a href="#">
+            <a href="account.html">
                 <img src="profile.png" alt="User Profile" class="profile-icon">
             </a>
         </div>
@@ -32,7 +31,6 @@
     
 <div class="page-wrap">
 
-    <!-- ⭐ SECOND NAVBAR (HOTEL FILTERS) ⭐ -->
     <div class="hotel-navbar">
         <div class="filter-bar" role="region" aria-label="flight search filters">
         <div class="filter-fields-container">
@@ -71,48 +69,38 @@
             <button id="search-btn" class="search-btn">Search</button>
         </div>
     </div>
-    </div>
+</div>
 
-    <!-- ⭐ ADDED SPACER (fixes alignment exactly like your reference picture) ⭐ -->
     <div class="spacer-30"></div>
 
-    <!-- MAIN CONTENT -->
-    <div class="content">
-
-        <!-- LEFT: GRID -->
-        <div class="airbnb-grid">
-            <div class="airbnb-card" onclick="showDetails(0)">
+    <div class="content-wrapper" id="contentWrapper">
+        <div class="airbnb-grid" id="airbnbGrid">
+            <div class="airbnb-card" data-index="0">
                 <img src="airbnb1.jpg" />
                 <p>Cozy Beachfront Home</p>
             </div>
-
-            <div class="airbnb-card" onclick="showDetails(1)">
+            <div class="airbnb-card" data-index="1">
                 <img src="airbnb2.jpg" />
                 <p>Mountain View Cabin</p>
             </div>
-
-            <div class="airbnb-card" onclick="showDetails(2)">
+            <div class="airbnb-card" data-index="2">
                 <img src="airbnb3.jpg" />
                 <p>Luxury City Condo</p>
             </div>
-
-            <div class="airbnb-card" onclick="showDetails(3)">
+            <div class="airbnb-card" data-index="3">
                 <img src="airbnb4.jpg" />
                 <p>Private Island Retreat</p>
             </div>
-
-            <div class="airbnb-card" onclick="showDetails(4)">
+            <div class="airbnb-card" data-index="4">
                 <img src="airbnb5.jpg" />
                 <p>Modern Glass Villa</p>
             </div>
-
-            <div class="airbnb-card" onclick="showDetails(5)">
+            <div class="airbnb-card" data-index="5">
                 <img src="airbnb6.jpg" />
                 <p>Forest Treehouse</p>
             </div>
         </div>
 
-        <!-- RIGHT: DETAILS -->
         <div class="details-panel" id="detailsPanel">
             <h2>Select an Airbnb</h2>
             <p>Click one of the listings to view more details.</p>
@@ -127,22 +115,37 @@
 </footer>
 
 <script>
-const details = [
-    { title:"Cozy Beachfront Home", desc:"A relaxing beachfront stay." },
-    { title:"Mountain View Cabin", desc:"A peaceful cabin with cold breeze." },
-    { title:"Luxury City Condo", desc:"In the heart of the city." },
-    { title:"Private Island Retreat", desc:"Exclusive island experience." },
-    { title:"Modern Glass Villa", desc:"Panoramic glass walls + pool." },
-    { title:"Forest Treehouse", desc:"Stay above the forest canopy." }
-];
+    const details = [
+        { title: "Cozy Beachfront Home", desc: "A relaxing beachfront stay.", imgSrc: "airbnb1.jpg" },
+        { title: "Mountain View Cabin", desc: "A peaceful cabin with cold breeze.", imgSrc: "airbnb2.jpg" },
+        { title: "Luxury City Condo", desc: "In the heart of the city.", imgSrc: "airbnb3.jpg" },
+        { title: "Private Island Retreat", desc: "Exclusive island experience.", imgSrc: "airbnb4.jpg" },
+        { title: "Modern Glass Villa", desc: "Panoramic glass walls + pool.", imgSrc: "airbnb5.jpg" },
+        { title: "Forest Treehouse", desc: "Stay above the forest canopy.", imgSrc: "airbnb6.jpg" }
+    ];
 
-function showDetails(index) {
-    document.getElementById("detailsPanel").innerHTML = `
-        <h2>${details[index].title}</h2>
-        <p>${details[index].desc}</p>
-    `;
-}
+    function showDetails(index) {
+        const panel = document.getElementById("detailsPanel");
+        const selected = details[index];
+
+        panel.innerHTML = `
+            <img src="${selected.imgSrc}" alt="${selected.title}" class="detail-image" />
+            <div class="detail-content">
+                <h2>${selected.title}</h2>
+                <p>${selected.desc}</p>
+                <button class="book-btn">Book Now</button>
+            </div>
+        `;
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.airbnb-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showDetails(index);
+            });
+        });
+    });
 </script>
-
 </body>
 </html>

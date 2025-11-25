@@ -62,18 +62,21 @@
                 
                 <div class="photo-upload-container">
                     <div class="user-profile-photo">
-                        <img src="profile.png" alt="User Profile">
+                        <img id="profile-photo-img" src="profile.png" alt="User Profile">
                     </div>
                     <div class="upload-text">
-                        <h2>Upload a New Photo</h2>
-                        <p>Profile-pic.jpg</p>
+                        <h2 id="upload-heading">Upload a New Photo</h2>
+                        <p id="upload-filename">No file chosen</p>
                     </div>
-                    <button class="update-btn">Update</button>
+                    <div class="photo-controls">
+                        <input id="profile-photo-input" type="file" accept="image/*" style="display:none">
+                        <button type="button" id="choose-photo" class="update-btn">Choose Photo</button>
+                    </div>
                 </div>
                 
                 <div class="user-info-form">
                     <h1>Change User Information here</h1>
-                    <form>
+                    <form id="profile-form">
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="fullName">Full Name*</label>
@@ -109,8 +112,247 @@
                             <div class="form-group">
                                 <label for="country">Country</label>
                                 <select id="country">
-                                    <option>Bangladesh</option>
-                                    <option>Philippines</option>
+                                    <option value="">Select country</option>
+                                    <option value="AF">Afghanistan</option>
+                                    <option value="AL">Albania</option>
+                                    <option value="DZ">Algeria</option>
+                                    <option value="AS">American Samoa</option>
+                                    <option value="AD">Andorra</option>
+                                    <option value="AO">Angola</option>
+                                    <option value="AI">Anguilla</option>
+                                    <option value="AQ">Antarctica</option>
+                                    <option value="AG">Antigua and Barbuda</option>
+                                    <option value="AR">Argentina</option>
+                                    <option value="AM">Armenia</option>
+                                    <option value="AW">Aruba</option>
+                                    <option value="AU">Australia</option>
+                                    <option value="AT">Austria</option>
+                                    <option value="AZ">Azerbaijan</option>
+                                    <option value="BS">Bahamas</option>
+                                    <option value="BH">Bahrain</option>
+                                    <option value="BD">Bangladesh</option>
+                                    <option value="BB">Barbados</option>
+                                    <option value="BY">Belarus</option>
+                                    <option value="BE">Belgium</option>
+                                    <option value="BZ">Belize</option>
+                                    <option value="BJ">Benin</option>
+                                    <option value="BM">Bermuda</option>
+                                    <option value="BT">Bhutan</option>
+                                    <option value="BO">Bolivia</option>
+                                    <option value="BA">Bosnia and Herzegovina</option>
+                                    <option value="BW">Botswana</option>
+                                    <option value="BR">Brazil</option>
+                                    <option value="IO">British Indian Ocean Territory</option>
+                                    <option value="BN">Brunei Darussalam</option>
+                                    <option value="BG">Bulgaria</option>
+                                    <option value="BF">Burkina Faso</option>
+                                    <option value="BI">Burundi</option>
+                                    <option value="CV">Cabo Verde</option>
+                                    <option value="KH">Cambodia</option>
+                                    <option value="CM">Cameroon</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="KY">Cayman Islands</option>
+                                    <option value="CF">Central African Republic</option>
+                                    <option value="TD">Chad</option>
+                                    <option value="CL">Chile</option>
+                                    <option value="CN">China</option>
+                                    <option value="CX">Christmas Island</option>
+                                    <option value="CC">Cocos (Keeling) Islands</option>
+                                    <option value="CO">Colombia</option>
+                                    <option value="KM">Comoros</option>
+                                    <option value="CG">Congo</option>
+                                    <option value="CD">Congo (Democratic Republic)</option>
+                                    <option value="CK">Cook Islands</option>
+                                    <option value="CR">Costa Rica</option>
+                                    <option value="CI">Côte d'Ivoire</option>
+                                    <option value="HR">Croatia</option>
+                                    <option value="CU">Cuba</option>
+                                    <option value="CW">Curaçao</option>
+                                    <option value="CY">Cyprus</option>
+                                    <option value="CZ">Czechia</option>
+                                    <option value="DK">Denmark</option>
+                                    <option value="DJ">Djibouti</option>
+                                    <option value="DM">Dominica</option>
+                                    <option value="DO">Dominican Republic</option>
+                                    <option value="EC">Ecuador</option>
+                                    <option value="EG">Egypt</option>
+                                    <option value="SV">El Salvador</option>
+                                    <option value="GQ">Equatorial Guinea</option>
+                                    <option value="ER">Eritrea</option>
+                                    <option value="EE">Estonia</option>
+                                    <option value="SZ">Eswatini</option>
+                                    <option value="ET">Ethiopia</option>
+                                    <option value="FK">Falkland Islands (Malvinas)</option>
+                                    <option value="FO">Faroe Islands</option>
+                                    <option value="FJ">Fiji</option>
+                                    <option value="FI">Finland</option>
+                                    <option value="FR">France</option>
+                                    <option value="GF">French Guiana</option>
+                                    <option value="PF">French Polynesia</option>
+                                    <option value="GA">Gabon</option>
+                                    <option value="GM">Gambia</option>
+                                    <option value="GE">Georgia</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="GH">Ghana</option>
+                                    <option value="GI">Gibraltar</option>
+                                    <option value="GR">Greece</option>
+                                    <option value="GL">Greenland</option>
+                                    <option value="GD">Grenada</option>
+                                    <option value="GP">Guadeloupe</option>
+                                    <option value="GU">Guam</option>
+                                    <option value="GT">Guatemala</option>
+                                    <option value="GG">Guernsey</option>
+                                    <option value="GN">Guinea</option>
+                                    <option value="GW">Guinea-Bissau</option>
+                                    <option value="GY">Guyana</option>
+                                    <option value="HT">Haiti</option>
+                                    <option value="HN">Honduras</option>
+                                    <option value="HK">Hong Kong SAR</option>
+                                    <option value="HU">Hungary</option>
+                                    <option value="IS">Iceland</option>
+                                    <option value="IN">India</option>
+                                    <option value="ID">Indonesia</option>
+                                    <option value="IR">Iran</option>
+                                    <option value="IQ">Iraq</option>
+                                    <option value="IE">Ireland</option>
+                                    <option value="IM">Isle of Man</option>
+                                    <option value="IL">Israel</option>
+                                    <option value="IT">Italy</option>
+                                    <option value="JM">Jamaica</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="JE">Jersey</option>
+                                    <option value="JO">Jordan</option>
+                                    <option value="KZ">Kazakhstan</option>
+                                    <option value="KE">Kenya</option>
+                                    <option value="KI">Kiribati</option>
+                                    <option value="KP">Korea (North)</option>
+                                    <option value="KR">Korea (South)</option>
+                                    <option value="KW">Kuwait</option>
+                                    <option value="KG">Kyrgyzstan</option>
+                                    <option value="LA">Lao PDR</option>
+                                    <option value="LV">Latvia</option>
+                                    <option value="LB">Lebanon</option>
+                                    <option value="LS">Lesotho</option>
+                                    <option value="LR">Liberia</option>
+                                    <option value="LY">Libya</option>
+                                    <option value="LI">Liechtenstein</option>
+                                    <option value="LT">Lithuania</option>
+                                    <option value="LU">Luxembourg</option>
+                                    <option value="MO">Macao SAR</option>
+                                    <option value="MG">Madagascar</option>
+                                    <option value="MW">Malawi</option>
+                                    <option value="MY">Malaysia</option>
+                                    <option value="MV">Maldives</option>
+                                    <option value="ML">Mali</option>
+                                    <option value="MT">Malta</option>
+                                    <option value="MH">Marshall Islands</option>
+                                    <option value="MQ">Martinique</option>
+                                    <option value="MR">Mauritania</option>
+                                    <option value="MU">Mauritius</option>
+                                    <option value="YT">Mayotte</option>
+                                    <option value="MX">Mexico</option>
+                                    <option value="FM">Micronesia</option>
+                                    <option value="MD">Moldova</option>
+                                    <option value="MC">Monaco</option>
+                                    <option value="MN">Mongolia</option>
+                                    <option value="ME">Montenegro</option>
+                                    <option value="MS">Montserrat</option>
+                                    <option value="MA">Morocco</option>
+                                    <option value="MZ">Mozambique</option>
+                                    <option value="MM">Myanmar</option>
+                                    <option value="NA">Namibia</option>
+                                    <option value="NR">Nauru</option>
+                                    <option value="NP">Nepal</option>
+                                    <option value="NL">Netherlands</option>
+                                    <option value="NC">New Caledonia</option>
+                                    <option value="NZ">New Zealand</option>
+                                    <option value="NI">Nicaragua</option>
+                                    <option value="NE">Niger</option>
+                                    <option value="NG">Nigeria</option>
+                                    <option value="NU">Niue</option>
+                                    <option value="NF">Norfolk Island</option>
+                                    <option value="MP">Northern Mariana Islands</option>
+                                    <option value="NO">Norway</option>
+                                    <option value="OM">Oman</option>
+                                    <option value="PK">Pakistan</option>
+                                    <option value="PW">Palau</option>
+                                    <option value="PS">Palestine</option>
+                                    <option value="PA">Panama</option>
+                                    <option value="PG">Papua New Guinea</option>
+                                    <option value="PY">Paraguay</option>
+                                    <option value="PE">Peru</option>
+                                    <option value="PH">Philippines</option>
+                                    <option value="PN">Pitcairn</option>
+                                    <option value="PL">Poland</option>
+                                    <option value="PT">Portugal</option>
+                                    <option value="PR">Puerto Rico</option>
+                                    <option value="QA">Qatar</option>
+                                    <option value="RE">Réunion</option>
+                                    <option value="RO">Romania</option>
+                                    <option value="RU">Russian Federation</option>
+                                    <option value="RW">Rwanda</option>
+                                    <option value="BL">Saint Barthélemy</option>
+                                    <option value="SH">Saint Helena</option>
+                                    <option value="KN">Saint Kitts and Nevis</option>
+                                    <option value="LC">Saint Lucia</option>
+                                    <option value="MF">Saint Martin (French part)</option>
+                                    <option value="PM">Saint Pierre and Miquelon</option>
+                                    <option value="VC">Saint Vincent and the Grenadines</option>
+                                    <option value="WS">Samoa</option>
+                                    <option value="SM">San Marino</option>
+                                    <option value="ST">Sao Tome and Principe</option>
+                                    <option value="SA">Saudi Arabia</option>
+                                    <option value="SN">Senegal</option>
+                                    <option value="RS">Serbia</option>
+                                    <option value="SC">Seychelles</option>
+                                    <option value="SL">Sierra Leone</option>
+                                    <option value="SG">Singapore</option>
+                                    <option value="SX">Sint Maarten (Dutch part)</option>
+                                    <option value="SK">Slovakia</option>
+                                    <option value="SI">Slovenia</option>
+                                    <option value="SB">Solomon Islands</option>
+                                    <option value="SO">Somalia</option>
+                                    <option value="ZA">South Africa</option>
+                                    <option value="SS">South Sudan</option>
+                                    <option value="ES">Spain</option>
+                                    <option value="LK">Sri Lanka</option>
+                                    <option value="SD">Sudan</option>
+                                    <option value="SR">Suriname</option>
+                                    <option value="SE">Sweden</option>
+                                    <option value="CH">Switzerland</option>
+                                    <option value="SY">Syria</option>
+                                    <option value="TW">Taiwan</option>
+                                    <option value="TJ">Tajikistan</option>
+                                    <option value="TZ">Tanzania</option>
+                                    <option value="TH">Thailand</option>
+                                    <option value="TL">Timor-Leste</option>
+                                    <option value="TG">Togo</option>
+                                    <option value="TK">Tokelau</option>
+                                    <option value="TO">Tonga</option>
+                                    <option value="TT">Trinidad and Tobago</option>
+                                    <option value="TN">Tunisia</option>
+                                    <option value="TR">Turkey</option>
+                                    <option value="TM">Turkmenistan</option>
+                                    <option value="TC">Turks and Caicos Islands</option>
+                                    <option value="TV">Tuvalu</option>
+                                    <option value="UG">Uganda</option>
+                                    <option value="UA">Ukraine</option>
+                                    <option value="AE">United Arab Emirates</option>
+                                    <option value="GB">United Kingdom</option>
+                                    <option value="US">United States</option>
+                                    <option value="UY">Uruguay</option>
+                                    <option value="UZ">Uzbekistan</option>
+                                    <option value="VU">Vanuatu</option>
+                                    <option value="VA">Vatican City</option>
+                                    <option value="VE">Venezuela</option>
+                                    <option value="VN">Vietnam</option>
+                                    <option value="VG">Virgin Islands (British)</option>
+                                    <option value="VI">Virgin Islands (U.S.)</option>
+                                    <option value="WF">Wallis and Futuna</option>
+                                    <option value="EH">Western Sahara</option>
+                                    <option value="YE">Yemen</option>
+                                    <option value="ZM">Zambia</option>
+                                    <option value="ZW">Zimbabwe</option>
                                 </select>
                             </div>
                         </div>
@@ -122,41 +364,283 @@
 
             <div id="dashboard-content" class="content-section hidden">
                 <h2>Dashboard Overview</h2>
-                <p>Welcome to your Dashboard. This section is currently under construction.</p>
+                
+                <div class="dashboard-container">
+                    <!-- Account Summary Section -->
+                    <div class="summary-section">
+                        <h3>Account Summary</h3>
+                        <div class="summary-cards">
+                            <div class="summary-card">
+                                <div class="card-icon">👤</div>
+                                <div class="card-content">
+                                    <p class="card-label">Full Name</p>
+                                    <p id="dash-fullname" class="card-value">Tonmoy Karmaker</p>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-icon">📧</div>
+                                <div class="card-content">
+                                    <p class="card-label">Email</p>
+                                    <p id="dash-email" class="card-value">tonmoydesigner@gmail.com</p>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-icon">📍</div>
+                                <div class="card-content">
+                                    <p class="card-label">Location</p>
+                                    <p id="dash-location" class="card-value">Natore, Bangladesh</p>
+                                </div>
+                            </div>
+                            <div class="summary-card">
+                                <div class="card-icon">📱</div>
+                                <div class="card-content">
+                                    <p class="card-label">Phone</p>
+                                    <p id="dash-phone" class="card-value">+880-1700-000000</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Travel Statistics Section -->
+                    <div class="stats-section">
+                        <h3>Travel Statistics</h3>
+                        <div class="stats-cards">
+                            <div class="stat-card primary">
+                                <div id="stat-total" class="stat-number">12</div>
+                                <div class="stat-label">Total Travels</div>
+                            </div>
+                            <div class="stat-card success">
+                                <div id="stat-completed" class="stat-number">10</div>
+                                <div class="stat-label">Completed</div>
+                            </div>
+                            <div class="stat-card warning">
+                                <div id="stat-upcoming" class="stat-number">2</div>
+                                <div class="stat-label">Upcoming</div>
+                            </div>
+                            <div class="stat-card info">
+                                <div id="stat-spent" class="stat-number">₱45,000</div>
+                                <div class="stat-label">Total Spent</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upcoming Travels Section -->
+                    <div class="upcoming-section">
+                        <h3>Upcoming Travels</h3>
+                        <div class="upcoming-travels">
+                            <div class="travel-card upcoming">
+                                <div class="travel-header">
+                                    <span class="airline-name">Philippine Sky Airway</span>
+                                    <span class="travel-status upcoming-badge">Upcoming</span>
+                                </div>
+                                <div class="travel-details">
+                                    <div class="travel-route">
+                                        <div class="route-point">
+                                            <p class="route-code">MNL</p>
+                                            <p class="route-time">Dec 15, 2024</p>
+                                            <p class="route-time-detail">10:30 AM</p>
+                                        </div>
+                                        <div class="route-arrow">✈️</div>
+                                        <div class="route-point">
+                                            <p class="route-code">CEB</p>
+                                            <p class="route-time">Dec 15, 2024</p>
+                                            <p class="route-time-detail">1:15 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="travel-footer">
+                                    <span class="ticket-info">Ticket: PSA-2024-0891</span>
+                                    <span class="passenger-name">Tonmoy Karmaker</span>
+                                    <button class="view-btn">View Details</button>
+                                </div>
+                            </div>
+
+                            <div class="travel-card upcoming">
+                                <div class="travel-header">
+                                    <span class="airline-name">AURELI-YA!</span>
+                                    <span class="travel-status upcoming-badge">Upcoming</span>
+                                </div>
+                                <div class="travel-details">
+                                    <div class="travel-route">
+                                        <div class="route-point">
+                                            <p class="route-code">DVO</p>
+                                            <p class="route-time">Dec 28, 2024</p>
+                                            <p class="route-time-detail">2:00 PM</p>
+                                        </div>
+                                        <div class="route-arrow">✈️</div>
+                                        <div class="route-point">
+                                            <p class="route-code">CRK</p>
+                                            <p class="route-time">Dec 28, 2024</p>
+                                            <p class="route-time-detail">4:45 PM</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="travel-footer">
+                                    <span class="ticket-info">Ticket: AY-2024-1547</span>
+                                    <span class="passenger-name">Tonmoy Karmaker</span>
+                                    <button class="view-btn">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="history-content" class="content-section hidden">
                 <h2>History Travels</h2>
-                <p>View your past bookings and travel details here.</p>
-                <table class="history-table">
-                    <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Route</th>
-                            <th>Airline</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>2024-10-15</td>
-                            <td>MNL to CEB</td>
-                            <td>Philippine Sky Airway</td>
-                            <td>Completed</td>
-                        </tr>
-                        <tr>
-                            <td>2024-05-20</td>
-                            <td>DVO to CRK</td>
-                            <td>AURELI-YA!</td>
-                            <td>Completed</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="history-container">
+                    <div class="history-travels">
+                        <div class="travel-card completed">
+                            <div class="travel-header">
+                                <span class="airline-name">Philippine Sky Airway</span>
+                                <span class="travel-status completed-badge">✓ Completed</span>
+                            </div>
+                            <div class="travel-details">
+                                <div class="travel-route">
+                                    <div class="route-point">
+                                        <p class="route-code">MNL</p>
+                                        <p class="route-time">Oct 15, 2024</p>
+                                        <p class="route-time-detail">8:00 AM</p>
+                                    </div>
+                                    <div class="route-arrow">✈️</div>
+                                    <div class="route-point">
+                                        <p class="route-code">CEB</p>
+                                        <p class="route-time">Oct 15, 2024</p>
+                                        <p class="route-time-detail">10:45 AM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="travel-footer">
+                                <span class="ticket-info">Ticket: PSA-2024-0445</span>
+                                <span class="passenger-name">Tonmoy Karmaker</span>
+                                <button class="view-btn">View Receipt</button>
+                            </div>
+                        </div>
+
+                        <div class="travel-card completed">
+                            <div class="travel-header">
+                                <span class="airline-name">AURELI-YA!</span>
+                                <span class="travel-status completed-badge">✓ Completed</span>
+                            </div>
+                            <div class="travel-details">
+                                <div class="travel-route">
+                                    <div class="route-point">
+                                        <p class="route-code">DVO</p>
+                                        <p class="route-time">May 20, 2024</p>
+                                        <p class="route-time-detail">3:30 PM</p>
+                                    </div>
+                                    <div class="route-arrow">✈️</div>
+                                    <div class="route-point">
+                                        <p class="route-code">CRK</p>
+                                        <p class="route-time">May 20, 2024</p>
+                                        <p class="route-time-detail">5:15 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="travel-footer">
+                                <span class="ticket-info">Ticket: AY-2024-0892</span>
+                                <span class="passenger-name">Tonmoy Karmaker</span>
+                                <button class="view-btn">View Receipt</button>
+                            </div>
+                        </div>
+
+                        <div class="travel-card completed">
+                            <div class="travel-header">
+                                <span class="airline-name">SkyRoute</span>
+                                <span class="travel-status completed-badge">✓ Completed</span>
+                            </div>
+                            <div class="travel-details">
+                                <div class="travel-route">
+                                    <div class="route-point">
+                                        <p class="route-code">MNL</p>
+                                        <p class="route-time">Apr 10, 2024</p>
+                                        <p class="route-time-detail">6:15 AM</p>
+                                    </div>
+                                    <div class="route-arrow">✈️</div>
+                                    <div class="route-point">
+                                        <p class="route-code">ILO</p>
+                                        <p class="route-time">Apr 10, 2024</p>
+                                        <p class="route-time-detail">8:30 AM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="travel-footer">
+                                <span class="ticket-info">Ticket: SKY-2024-0567</span>
+                                <span class="passenger-name">Tonmoy Karmaker</span>
+                                <button class="view-btn">View Receipt</button>
+                            </div>
+                        </div>
+
+                        <div class="travel-card completed">
+                            <div class="travel-header">
+                                <span class="airline-name">TruTravel</span>
+                                <span class="travel-status completed-badge">✓ Completed</span>
+                            </div>
+                            <div class="travel-details">
+                                <div class="travel-route">
+                                    <div class="route-point">
+                                        <p class="route-code">CEB</p>
+                                        <p class="route-time">Feb 28, 2024</p>
+                                        <p class="route-time-detail">11:00 AM</p>
+                                    </div>
+                                    <div class="route-arrow">✈️</div>
+                                    <div class="route-point">
+                                        <p class="route-code">ZAM</p>
+                                        <p class="route-time">Feb 28, 2024</p>
+                                        <p class="route-time-detail">12:45 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="travel-footer">
+                                <span class="ticket-info">Ticket: TRU-2024-0234</span>
+                                <span class="passenger-name">Tonmoy Karmaker</span>
+                                <button class="view-btn">View Receipt</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div id="settings-content" class="content-section hidden">
                 <h2>Settings</h2>
-                <p>Manage your preferences and security options.</p>
+                <div class="settings-panel">
+                    <form id="settings-form">
+                        <div class="settings-row">
+                            <label for="pref-currency">Preferred Currency</label>
+                            <select id="pref-currency">
+                                <option value="PHP">PHP</option>
+                                <option value="BDT">BDT</option>
+                                <option value="USD">USD</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-row">
+                            <label for="notif-email">Email Notifications</label>
+                            <select id="notif-email">
+                                <option value="enabled">Enabled</option>
+                                <option value="disabled">Disabled</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-row">
+                            <label for="privacy-mode">Privacy Mode</label>
+                            <select id="privacy-mode">
+                                <option value="standard">Standard</option>
+                                <option value="private">Private</option>
+                            </select>
+                        </div>
+
+                        <div class="settings-row">
+                            <label for="change-password">Change Password</label>
+                            <input id="change-password" type="password" placeholder="New password" />
+                        </div>
+
+                        <div class="settings-actions">
+                            <button type="button" id="save-settings" class="save-settings">Save Changes</button>
+                            <button type="button" id="reset-settings" class="reset-settings">Reset</button>
+                        </div>
+                    </form>
+                </div>
             </div>
 
         </div>
@@ -187,6 +671,64 @@
                 }
             });
         });
+
+        // --- Profile -> Dashboard/History Sync ---
+        const profileForm = document.getElementById('profile-form');
+        if (profileForm) {
+            profileForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                // read fields
+                const fullName = document.getElementById('fullName')?.value || '';
+                const email = document.getElementById('email')?.value || '';
+                const address = document.getElementById('address')?.value || '';
+                const city = document.getElementById('city')?.value || '';
+                const state = document.getElementById('state')?.value || '';
+                const zip = document.getElementById('zipCode')?.value || '';
+                const country = document.getElementById('country')?.value || '';
+
+                // Update Dashboard summary fields
+                const dashName = document.getElementById('dash-fullname');
+                const dashEmail = document.getElementById('dash-email');
+                const dashLocation = document.getElementById('dash-location');
+                if (dashName) dashName.textContent = fullName || '—';
+                if (dashEmail) dashEmail.textContent = email || '—';
+                if (dashLocation) dashLocation.textContent = [address, city, state, zip, country].filter(Boolean).join(', ');
+
+                const dashPhone = document.getElementById('dash-phone');
+                // phone input not present in form; keep existing value
+
+                // Update passenger name in history and upcoming travel cards
+                const passengerEls = document.querySelectorAll('.passenger-name');
+                passengerEls.forEach(el => el.textContent = fullName || '—');
+
+                // Optionally show a small confirmation
+                alert('Profile updated and synced to Dashboard & History.');
+            });
+        }
+
+        // --- Photo chooser + preview handling ---
+        (function(){
+            const chooseBtn = document.getElementById('choose-photo');
+            const fileInput = document.getElementById('profile-photo-input');
+            const photoImg = document.getElementById('profile-photo-img');
+            const filenameEl = document.getElementById('upload-filename');
+
+            if (!chooseBtn || !fileInput || !photoImg) return;
+
+            chooseBtn.addEventListener('click', function(){ fileInput.click(); });
+
+            fileInput.addEventListener('change', function(e){
+                const file = this.files && this.files[0];
+                if (!file) return;
+                filenameEl.textContent = file.name;
+                const reader = new FileReader();
+                reader.onload = function(ev){
+                    photoImg.src = ev.target.result;
+                };
+                reader.readAsDataURL(file);
+            });
+        })();
     </script>
 
 </body>

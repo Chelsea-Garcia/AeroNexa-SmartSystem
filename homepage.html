@@ -19,11 +19,16 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="homepage.html" class="nav-link active" onclick="setActive(this)">HOME</a></li>
-                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
+                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILLIPINE SKY AIRWAY</a></li>
                 <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
                 <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
                 <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
             </ul>
+            <div class="nav-profile">
+                <a href="#">
+                    <img src="profile.png" alt="User Profile" class="profile-icon">
+                </a>
+            </div>
         </nav>
 
         <!-- Hero Section -->
@@ -42,7 +47,7 @@
                         <span class="headline-line">UNFORGETTABLE</span>
                         <span class="headline-line">EXPERIENCE</span>
                     </div>
-                    <button class="book-button">BOOK YOUR FLIGHT NOW</button>
+                    <a href="trutravel.html"><button class="book-button">PLAN YOUR TRAVEL NOW</button></a>
                 </div>
             </div>
         </div>
@@ -53,7 +58,7 @@
                 <div class="about-left">
                     <h3 class="about-title">ABOUT US</h3>
                     <p class="about-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In sit tortor quis cursor diacausal. Donec ultricorper elit et massa vehicula dignissim. Interdum et malesuada fames ac ante ipsum primis in faucibus. Vivamus laoreet velit vel nunc tincet ultricies. Mauris elit non ex ultricies, et maximus sapien egestas. Pellentesque fermentum nisi ac erat dignissim. Aliquam vitae rhoncus odio, non faucibus unda. Sed lacinia augue sit amet elit condimentum consequat. Ut sit amet nunc at magna pellentesque commodo nisi id erat efficitur cursus.Cras neque, venenatis sed cursus sit, dignissim vulgdate enim. Integer hendrerit neque sed enim daetor, ut eulismod et.
+                        AeroNexa Flight Concierge is not just another booking platform; it is a comprehensive travel ecosystem designed to eliminate the friction points traditionally associated with planning a trip. Our vision is to create a seamless, end-to-end travel experience by centralizing and coordinating the essential services of flight, accommodation, and ground transport through a single, intelligent digital platform. By moving beyond fragmented booking systems, AeroNexa FC ensures that every piece of a traveler's journey—from ticket purchase to airport pickup and hotel check-in—is perfectly synchronized and personalized.
                     </p>
                 </div>
                 <div class="about-right">
@@ -63,19 +68,12 @@
         </div>
     </div>
 
-    <script>
-        function setActive(element) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            element.classList.add('active');
-        }
+    <footer class="main-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 AERONEXA. All rights reserved.</p>
+        </div>
+    </footer>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const path = location.pathname.split('/').pop() || 'homepage.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === path) link.classList.add('active');
-                else link.classList.remove('active');
-            });
-        });
-    </script>
+    
 </body>
 </html>

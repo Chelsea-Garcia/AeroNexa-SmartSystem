@@ -5,12 +5,10 @@
     overflow: visible;
     position: relative;
 }
-
 html {
     height: 100%;
     overflow-y: auto;
 }
-
 body {
     font-family: "Poppins", Helvetica;
     height: auto;
@@ -18,13 +16,11 @@ body {
     margin: 0;
     overflow: visible;
 }
-
 .page-wrap {
     height: auto;
     overflow: visible;
-    padding: 50px 0 0 0;
+    padding: 55px 0 0 0; /* Changed from 50px to 55px to accommodate navbar height */
 }
-
 .navbar {
     width: 100%;
     height: 55px;
@@ -40,57 +36,49 @@ body {
     overflow: visible;
     z-index: 10;
 }
-
 /* Logo */
 .nav-logo {
     display: flex;
     align-items: center;
     gap: 15px;
 }
-
 .nav-logo-img {
     width: 40px;
     height: auto;
     object-fit: cover;
 }
-
 .nav-title {
     font-family: "poppins", helvetica;
     font-size: 18px;
     font-weight: 700;
     color: #ffffff;
 }
-
 /* Menu */
 .nav-menu {
     display: flex;
     list-style: none;
-    margin: 0 auto; 
+    margin: 0 auto;
     gap: 30px;
     align-items: center;
 }
-
 .nav-menu li {
     display: inline-block;
 }
-
 .nav-link {
     font-family: "poppins", helvetica;
     font-size: 15px;
     color: #000000;
     text-decoration: none;
-    padding: 8px 20px; 
+    padding: 8px 20px;
     border-radius: 30px;
     cursor: pointer;
     display: inline-block;
     transition: font-weight 0.5 ease;
 }
-
 .nav-link:hover {
     color: #FFEC3D;
     font-weight: bold;
 }
-
 .nav-link.active {
     color: #d4070f;
     font-weight: 700;
@@ -98,19 +86,16 @@ body {
     text-underline-offset: 8px;
     text-decoration-thickness: 3px;
 }
-
 .nav-profile a{
     font-size: 24px;
     color: #ffffff;
 }
-
 .profile-icon{
     width: 32px;
     height: 32px;
     object-fit: cover;
     display: block;
 }
-
 /* ⭐ SECOND NAVBAR BELOW AERONEXA ⭐ */
 .hotel-navbar {
     height: auto;
@@ -120,7 +105,6 @@ body {
     border-bottom: none;
     justify-content: center;
 }
-
 .filter-bar {
     display:flex;
     gap: 50px;
@@ -130,11 +114,11 @@ body {
     border-radius: 10px;
     border: 1px solid #e6e9ef;
     box-shadow: 0 5px 0 rgba(16,24,40,0.02);
-    margin: 0; 
+    margin: 0;
     max-width: 1000px;
 }
 .filter-fields-container{
-    display: flex; 
+    display: flex;
     flex: 1;
     gap: 50px;
 }
@@ -161,15 +145,13 @@ body {
     display: block;
     box-sizing: border-box;
 }
-
 .filter-item select {
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     width: 100%;
-    min-width: 120px;
+    min-width: 180px;
 }
-
 .select-wrapper {
     position: relative;
     display: block;
@@ -186,15 +168,14 @@ body {
     color: #44576a;
     position: absolute;
     top: 50%;
-    right: 12px;
+    right: 0;
     transform: translateY(-50%);
     pointer-events: none;
 }
-
 /* search action */
 .search-btn {
     font-family: "poppins", helvetica;
-    padding: 12px 25px;
+    padding: 12px 80px;
     cursor: pointer;
     background: #FFEC3D;
     border:none;
@@ -204,55 +185,95 @@ body {
     transition:all 0.3s;
     height: 48px;
 }
-.search-btn:hover { 
-    background:#FFD700; 
-    transform:scale(1.05); 
+.search-btn:hover {
+    background:#FFD700;
+    transform:scale(1.05);
 }
-
-/* CONTENT AREA BELOW FILTER NAVBAR */
-.content {
-    display: flex;
-    background: #f4f4f4;
-    padding: 20px 30px;
+.content-wrapper {
+    display: flex; /* Enables side-by-side layout */
+    justify-content: flex-start; /* Aligns panel to the start (left) */
+    padding: 20px 40px;
     gap: 40px;
+    margin: 0 auto;
+    background: #f4f4f4;
+    overflow: hidden;
 }
 
 /* AIRBNB GRID */
 .airbnb-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    width: 55%;
+    gap: 20px;
+    flex: 1;
 }
-
+.details-panel {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+    position: sticky;
+    width: 500px;
+    flex-shrink: 0;
+    opacity: 1; 
+    visibility: visible;
+    transition: none;
+}
 .airbnb-card {
     background: #fff;
     border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     border: 1px solid #ddd;
+    transition: box-shadow 0.3s;
 }
-
+.airbnb-card:hover {
+    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+}
 .airbnb-card img {
     width: 100%;
     height: 150px;
     object-fit: cover;
 }
-
 .airbnb-card p {
     padding: 10px;
     font-weight: 600;
 }
-
-/* DETAILS PANEL */
-.details-panel {
-    background: #ffffff;
-    border: 1px solid #ddd;
-    width: 40%;
-    padding: 25px;
-    border-radius: 10px;
+.details-panel h2 {
+    color: #333333;
 }
-
+.details-panel p {
+    color: #666666;
+}
+.detail-image {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.detail-content {
+    padding: 0 10px;
+}
+.book-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+    width: 100%;
+    font-size: 16px;
+    font-weight:700;
+    transition:all 0.3s;
+}
+.book-btn:hover {
+    background:#0056b3;
+    transform: none;
+}
+/* --- FOOTER STYLES --- */
 .main-footer {
     width: 100%;
     background: #04498D;
@@ -260,6 +281,7 @@ body {
     padding: 5px 0;
     margin-top: 20px;
 }
+
 
 .footer-bottom {
     text-align: center;

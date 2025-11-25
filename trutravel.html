@@ -5,41 +5,133 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="stylesheet" href="aureliya.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>AERONEXA</title>
+    <title>AERONEXA – AURELI-YA!</title>
 </head>
 
 <body>
-<!-- Home Section -->
-    <div id="home-section" class="home-section">
-        <!-- Navigation Bar -->
-        <nav class="navbar">
-            <div class="nav-logo">
-                <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
-                <span class="nav-title">AERONEXA</span>
+
+    <!-- TOP NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="aero.logo.png" alt="Logo" class="nav-logo-img" />
+            <span class="nav-title">AERONEXA</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
+            <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILLIPINE SKY AIRWAY</a></li>
+            <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
+            <li><a href="trutravel.html" class="nav-link active" onclick="setActive(this)">TRUTRAVEL</a></li>
+            <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+        </ul>
+        <div class="nav-profile">
+            <a href="#">
+                <img src="profile.png" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </nav>
+    
+<div class="page-wrap">
+
+    <!-- ⭐ SECOND NAVBAR (HOTEL FILTERS) ⭐ -->
+    <div class="hotel-navbar">
+        <div class="location-box">
+            <img src="location-icon.png" class="loc-icon">
+            <span>Location</span>
+        </div>
+
+        <button class="find-btn">Find Hotel</button>
+
+        <div class="filter-box">
+            <img src="calendar-icon.png">
+            <select><option>Date</option></select>
+        </div>
+
+        <div class="filter-box">
+            <img src="room-icon.png">
+            <select><option>Room</option></select>
+        </div>
+
+        <div class="filter-box">
+            <img src="adult-icon.png">
+            <select><option>Adult</option></select>
+        </div>
+
+        <div class="filter-box">
+            <img src="child-icon.png">
+            <select><option>Child</option></select>
+        </div>
+    </div>
+
+    <!-- ⭐ ADDED SPACER ⭐ -->
+    <div class="spacer-30"></div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+
+        <!-- LEFT: GRID -->
+        <div class="airbnb-grid">
+            <div class="airbnb-card" onclick="showDetails(0)">
+                <img src="airbnb1.jpg" />
+                <p>Cozy Beachfront Home</p>
             </div>
-            <ul class="nav-menu">
-                <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
-                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
-                <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
-                <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
-                <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
-            </ul>
-        </nav>
 
+            <div class="airbnb-card" onclick="showDetails(1)">
+                <img src="airbnb2.jpg" />
+                <p>Mountain View Cabin</p>
+            </div>
 
-    <script>
-        function setActive(element) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
-            element.classList.add('active');
-        }
+            <div class="airbnb-card" onclick="showDetails(2)">
+                <img src="airbnb3.jpg" />
+                <p>Luxury City Condo</p>
+            </div>
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const path = location.pathname.split('/').pop() || 'homepage.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === path) link.classList.add('active');
-                else link.classList.remove('active');
-            });
-        });
-    </script>
+            <div class="airbnb-card" onclick="showDetails(3)">
+                <img src="airbnb4.jpg" />
+                <p>Private Island Retreat</p>
+            </div>
+
+            <div class="airbnb-card" onclick="showDetails(4)">
+                <img src="airbnb5.jpg" />
+                <p>Modern Glass Villa</p>
+            </div>
+
+            <div class="airbnb-card" onclick="showDetails(5)">
+                <img src="airbnb6.jpg" />
+                <p>Forest Treehouse</p>
+            </div>
+        </div>
+
+        <!-- RIGHT: DETAILS -->
+        <div class="details-panel" id="detailsPanel">
+            <h2>Select an Airbnb</h2>
+            <p>Click one of the listings to view more details.</p>
+        </div>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-bottom">
+        <p>&copy; 2025 AERONEXA. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+const details = [
+    { title:"Cozy Beachfront Home", desc:"A relaxing beachfront stay." },
+    { title:"Mountain View Cabin", desc:"A peaceful cabin with cold breeze." },
+    { title:"Luxury City Condo", desc:"In the heart of the city." },
+    { title:"Private Island Retreat", desc:"Exclusive island experience." },
+    { title:"Modern Glass Villa", desc:"Panoramic glass walls + pool." },
+    { title:"Forest Treehouse", desc:"Stay above the forest canopy." }
+];
+
+function showDetails(index) {
+    document.getElementById("detailsPanel").innerHTML = `
+        <h2>${details[index].title}</h2>
+        <p>${details[index].desc}</p>
+    `;
+}
+</script>
+
 </body>
 </html>

@@ -1,0 +1,345 @@
+/* --- 1. YOUR ORIGINAL NAVBAR CSS (UNTOUCHED AND ISOLATED) --- */
+
+html {
+    height: 100%;
+}
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-color: #f7f7f7; 
+}
+
+.page-wrap {
+    height: auto;
+    overflow: visible;
+    padding: 50px 0 0 0;
+}
+
+/* YOUR ORIGINAL NAVBAR STYLES START HERE */
+.navbar {
+    width: 100%;
+    height: 55px;
+    position: fixed;
+    z-index: 10;
+    /* YOUR ORIGINAL GRADIENT */
+    background: linear-gradient(90deg, #037FBE 0%, #04498D 0%, #2967A3 8%, #88B5DC 15%, #DFDFDF 23%, #FFFFFF 50%, #DFDFDF 77%, #88B5DC 85%, #037FBE 92%, #04498D 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    box-sizing: border-box;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: visible; 
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.nav-logo-img {
+    width: 40px;
+    height: auto;
+    object-fit: cover;
+}
+
+.nav-title {
+    font-family: "poppins", helvetica;
+    font-size: 18px;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0 auto;
+    gap: 30px;
+    align-items: center;
+}
+
+.nav-menu li {
+    display: inline-block;
+}
+
+.nav-link {
+    font-family: "poppins", helvetica;
+    font-size: 15px;
+    color: #000000;
+    text-decoration: none;
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    display: inline-block;
+    transition: font-weight 0.5s ease;
+}
+
+.nav-link:hover {
+    color: #FFEC3D;
+    font-weight: bold;
+}
+
+.nav-link.active {
+    color: #d4070f;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 8px;
+    text-decoration-thickness: 3px;
+}
+
+.nav-profile a{
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.profile-icon{
+    width: 32px;
+    height: 32px;
+    object-fit: cover;
+    display: block;
+}
+/* YOUR ORIGINAL NAVBAR STYLES END HERE */
+
+
+/* --- 2. NEW ACCOUNT LAYOUT STYLES (Cleaned up and isolated) --- */
+
+/* Wrapper to force the content below the fixed navbar */
+.navbar-wrapper {
+    /* Use the fixed height of the navbar to offset the rest of the page content */
+    height: 55px; 
+    width: 100%;
+}
+
+/* MAIN CONTENT WRAPPER */
+.main-content-wrapper {
+    display: flex;
+    /* This calculation ensures the wrapper takes up the remaining viewport height */
+    min-height: calc(100vh - 55px); 
+}
+
+/* LEFT SIDEBAR */
+.sidebar {
+    width: 250px;
+    background-color: #04498D;
+    color: white;
+    padding: 0;
+    flex-shrink: 0; 
+    /* Making the sidebar sticky right below the navbar */
+    position: sticky;
+    top: 0; /* Aligned to the top of the viewport content area */
+    height: calc(100vh - 55px);
+    overflow-y: auto;
+    z-index: 5; 
+}
+
+.sidebar-header {
+    display: none;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    gap: 15px;
+}
+
+.menu-item a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+/* Active Item Style */
+.menu-item.active {
+    background-color: #ffffff; 
+}
+
+.menu-item.active i,
+.menu-item.active a {
+    color: #04498D;
+    font-weight: 600;
+}
+
+/* RIGHT MAIN ACCOUNT AREA */
+.account-details-area {
+    flex-grow: 1;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Content Sections for Interactivity */
+.content-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Interactivity Fix: Using !important to guarantee hiding */
+.hidden {
+    display: none !important;
+}
+
+/* PHOTO UPLOAD SECTION */
+.photo-upload-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.user-profile-photo {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #eee;
+    border: 1px solid #ddd;
+}
+.user-profile-photo img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.upload-text {
+    flex-grow: 1;
+}
+
+.upload-text h2 {
+    margin: 0 0 0px 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.upload-text p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.update-btn {
+    background-color: #04498D;
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s;
+}
+
+.update-btn:hover {
+    background-color: #04498D;
+}
+
+/* USER INFORMATION FORM */
+.user-info-form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.user-info-form h1 {
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.form-group {
+    flex: 1; 
+}
+
+.form-group.full-width {
+    flex: 0 0 100%; 
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #333;
+}
+
+input[type="text"],
+input[type="email"],
+select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; 
+    font-size: 14px;
+    color: #333;
+}
+
+select {
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%20177.3c-4.1%204.1-8.5%206.2-13.2%206.2s-9.1-2.1-13.2-6.2L146.2%2050.6l-114%20126.7c-4.1%204.1-8.5%206.2-13.2%206.2s-9.1-2.1-13.2-6.2c-8.2-8.2-8.2-21.6%200-29.8L132.8%2020.8c4.1-4.1%208.5-6.2%2013.2-6.2s9.1%202.1%2013.2%206.2l128%20141.7c8.2%208.2%208.2%2021.6%200%2029.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px;
+    padding-right: 30px; 
+}
+
+.submit-update-btn {
+    width: 100%;
+    background-color: #04498D; 
+    color: white;
+    padding: 15px 0;
+    border: none;
+    border-radius: 8px;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: none; 
+}
+
+/* History Travels Table Example */
+.history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.history-table th,
+.history-table td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.history-table th {
+    background-color: #f2f2f2;
+    font-weight: 600;
+}
+

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="aureliya.css" />
+    <link rel="stylesheet" href="skyroute.css" />
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <title>AERONEXA</title>
 </head>
@@ -19,27 +19,90 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
-                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILIPPINE SKY AIRLINE</a></li>
+                <li><a href="psa.html" class="nav-link" onclick="setActive(this)">PHILLIPINE SKY AIRWAY</a></li>
                 <li><a href="aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
                 <li><a href="trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
-                <li><a href="skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+                <li><a href="skyroute.html" class="nav-link active" onclick="setActive(this)">SKYROUTE</a></li>
             </ul>
+            <div class="nav-profile">
+                <a href="#">
+                    <img src="profile.png" alt="User Profile" class="profile-icon">
+                </a>
+            </div>
         </nav>
 
+        <!-- Hero / Banner  -->
+        <header class="hero-banner">
+            <div class="hero-overlay"></div>
+
+            <!-- Search Card -->
+            <div class="search-card">
+
+                <div class="search-row">
+                    <div class="search-item">
+                        <label>FROM</label>
+                        <input type="text" placeholder="" />
+                    </div>
+                    <div class="search-item">
+                        <label>TO</label>
+                        <input type="text" placeholder="" />
+                    </div>
+                    <div class="search-item">
+                        <label>DEPARTING DATE</label>
+                        <input type="date" />
+                    </div>
+                    <div class="search-item">
+                        <label>PASSENGERS</label>
+                        <input type="number" min="1" value="1" />
+                    </div>
+                    <div class="search-action">
+                        <button class="search-btn">Search</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Vehicles Section -->
+        <section class="vehicles-section">
+            <div class="container">
+                <h2 class="section-title">VEHICLES</h2>
+
+                <div class="vehicles-grid">
+                    <div class="vehicle-card">
+                        <img src="BUS.png" alt="Bus" class="vehicle-img" />
+                        <div class="vehicle-title">BUS</div>
+                        <button class="book-now">Book Now</button>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <img src="CAR.png" alt="Car" class="vehicle-img" />
+                        <div class="vehicle-title">CAR</div>
+                        <button class="book-now">Book Now</button>
+                    </div>
+
+                    <div class="vehicle-card">
+                        <img src="SUV.png" alt="SUV" class="vehicle-img" />
+                        <div class="vehicle-title">SUV</div>
+                        <button class="book-now">Book Now</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    <footer class="main-footer">
+        <div class="footer-bottom">
+            <p>&copy; 2025 AERONEXA. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script>
         function setActive(element) {
-            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
             element.classList.add('active');
         }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const path = location.pathname.split('/').pop() || 'homepage.html';
-            document.querySelectorAll('.nav-link').forEach(link => {
-                if (link.getAttribute('href') === path) link.classList.add('active');
-                else link.classList.remove('active');
-            });
-        });
     </script>
 </body>
 </html>

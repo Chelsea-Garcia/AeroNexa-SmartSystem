@@ -1,66 +1,50 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\aureliya;
+namespace App\Http\Controllers\api\v1\skyroute;
 
 use App\Http\Controllers\Controller;
-use App\Models\aureliya\Booking;
-use App\Models\aureliya\Property;
+use App\Models\skyroute\Booking;
+use App\Models\skyroute\Trip;
 use Illuminate\Http\Request;
 use App\Traits\HandlesAeroPay;
-use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
     use HandlesAeroPay;
 
-    public function index()
-    {
-        return Booking::all();
-    }
-
-    public function show($id)
-    {
-        return Booking::findOrFail($id);
-    }
-
     public function store(Request $req)
     {
         $data = $req->validate([
             'user_id'     => 'required|string',
-            'property_id' => 'required|string',
-            'check_in'    => 'required|date',
-            'check_out'   => 'required|date|after:check_in',
+            'trip_id'     => 'required|string',
+            'travel_date' => 'required|date',
+            'passengers'  => 'required|integer|min:1|max:20',
         ]);
 
-        $property = Property::find($data['property_id']);
-        if (!$property) return response()->json(['error' => 'Property not found'], 404);
+        $trip = Trip::find($data['trip_id']);
+        if (!$trip) return response()->json(['error' => 'Trip not found'], 404);
 
-        $nights = (new \DateTime($data['check_in']))->diff(new \DateTime($data['check_out']))->days;
-        if ($nights <= 0) return response()->json(['error' => 'Invalid stay duration'], 422);
-
-        $totalPrice = $nights * $property->price_per_night;
+        $total = $trip->fare * $data['passengers'];
 
         // Create booking (pending)
         $booking = Booking::create([
-            '_id'            => Str::uuid()->toString(),
             'user_id'        => $data['user_id'],
-            'property_id'    => $property->_id,
-            'check_in'       => $data['check_in'],
-            'check_out'      => $data['check_out'],
-            'total_price'    => $totalPrice,
+            'trip_id'        => $trip->_id,
+            'travel_date'    => $data['travel_date'],
+            'passengers'     => $data['passengers'],
+            'total_amount'   => $total,
             'payment_method' => 'AEROPAY',
-            'payment_status' => 'pending',
+            'payment_status' => 'pending'
         ]);
 
-        // Create AeroPay transaction
+        // AeroPay
         $tx = $this->createAeroPayPayment(
             $data['user_id'],
-            $totalPrice,
+            $total,
             $booking->_id,
-            'AURELIYA',
+            'SKYROUTE',
             [
-                'property_id' => $property->_id,
-                'property_name' => $property->title,
+                'trip_code' => $trip->trip_code
             ]
         );
 
@@ -70,24 +54,38 @@ class BookingController extends Controller
 
         $booking->update([
             'transaction_code' => $tx['transaction_code'],
-            'payment_status'   => $tx['status'],
+            'payment_status'   => $tx['status']
         ]);
 
-        return response()->json([
-            'message' => 'Aureliya booking created',
-            'data'    => $booking
-        ]);
+        return ['message' => 'SkyRoute booking created', 'data' => $booking];
     }
 
-    /** Update stay only */
-    public function update(Request $req, $id)
+    public function userBookings($id)
     {
-        $booking = Booking::findOrFail($id);
-        $booking->update($req->only(['check_in', 'check_out']));
+        return Booking::where('user_id', $id)->get();
+    }
+
+    public function show($id)
+    {
+        $booking = Booking::find($id);
+        if (!$booking) return response()->json(['error' => 'Not found'], 404);
         return $booking;
     }
 
-    /** Payment status update (paid/cancelled/failed) */
+    public function cancel($id)
+    {
+        $booking = Booking::find($id);
+        if (!$booking) return response()->json(['error' => 'Not found'], 404);
+
+        $this->updateAeroPayStatus($booking->transaction_code, 'cancelled');
+
+        $booking->payment_status = 'cancelled';
+        $booking->save();
+
+        return ['message' => 'Booking cancelled'];
+    }
+
+    /** Payment status updater */
     public function updateStatus(Request $req, $id)
     {
         $data = $req->validate([

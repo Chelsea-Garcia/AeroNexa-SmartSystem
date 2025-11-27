@@ -11,16 +11,30 @@ class Booking extends Model
 
     protected $fillable = [
         'user_id',
-        'trip_id',
-        'travel_date',
+        'origin_location_id',
+        'destination_location_id',
+        'vehicle_id',
+        'date',
+        'time',
+        'passenger_name',
         'payment_method',
-        'total_amount',
-        'transaction_code',
         'payment_status',
+        'estimated_amount',
+        'transaction_code',
     ];
 
-    public function trip()
+    public function origin()
     {
-        return $this->belongsTo(Trip::class, 'trip_id');
+        return $this->belongsTo(Location::class, 'origin_location_id');
+    }
+
+    public function destination()
+    {
+        return $this->belongsTo(Location::class, 'destination_location_id');
+    }
+
+    public function vehicle()
+    {
+        return $this->belongsTo(Vehicle::class);
     }
 }

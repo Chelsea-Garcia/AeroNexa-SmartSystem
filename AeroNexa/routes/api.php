@@ -99,27 +99,29 @@ Route::prefix('aureliya')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| SKYROUTE LAND TRANSPORTATION
+| SKYROUTE — LAND TRANSPORTATION (NEW LOGIC)
 |--------------------------------------------------------------------------
 */
 
-use App\Http\Controllers\api\v1\skyroute\TripController;
+use App\Http\Controllers\api\v1\skyroute\LocationController;
+use App\Http\Controllers\api\v1\skyroute\VehicleController;
 use App\Http\Controllers\api\v1\skyroute\BookingController as SkyrouteBookingController;
 
 Route::prefix('skyroute')->group(function () {
 
-    // Trips
-    Route::get('/trips', [TripController::class, 'index']);
-    Route::get('/trips/city/{city}', [TripController::class, 'byCity']);
-    Route::get('/trips/type/{type}', [TripController::class, 'byType']);
-    Route::get('/trip/{id}', [TripController::class, 'show']);
+    // Locations (origin/destination)
+    Route::get('/locations', [LocationController::class, 'index']);
+    Route::get('/locations/{id}', [LocationController::class, 'show']);
+
+    // Vehicles by city
+    Route::get('/vehicles/city/{city}', [VehicleController::class, 'vehiclesByCity']);
 
     // Bookings
-    Route::post('/booking', [SkyrouteBookingController::class, 'store']);
-    Route::get('/bookings/{user_id}', [SkyrouteBookingController::class, 'userBookings']);
+    Route::post('/bookings', [SkyrouteBookingController::class, 'store']);
+    Route::get('/bookings/user/{user_id}', [SkyrouteBookingController::class, 'userBookings']);
     Route::get('/booking/{id}', [SkyrouteBookingController::class, 'show']);
     Route::post('/booking/{id}/cancel', [SkyrouteBookingController::class, 'cancel']);
 
-    // ⭐ NEW — Update Payment Status
+    // Payment status
     Route::put('/booking/{id}/status', [SkyrouteBookingController::class, 'updateStatus']);
 });

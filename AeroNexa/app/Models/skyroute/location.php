@@ -13,10 +13,7 @@ class Location extends Model
         'country',
         'division',
         'city',
+        'latitude',
+        'longitude',
     ];
-
-    public function transportLines()
-    {
-        return $this->hasMany(TransportLine::class, 'location_id');
-    }
 }

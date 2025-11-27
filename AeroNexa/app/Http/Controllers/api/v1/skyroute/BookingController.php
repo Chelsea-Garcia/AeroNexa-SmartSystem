@@ -4,7 +4,8 @@ namespace App\Http\Controllers\api\v1\skyroute;
 
 use App\Http\Controllers\Controller;
 use App\Models\skyroute\Booking;
-use App\Models\skyroute\Trip;
+use App\Models\skyroute\Location;
+use App\Models\skyroute\Vehicle;
 use Illuminate\Http\Request;
 use App\Traits\HandlesAeroPay;
 
@@ -12,39 +13,118 @@ class BookingController extends Controller
 {
     use HandlesAeroPay;
 
+    /** Haversine Distance Calculator */
+    private function haversine($lat1, $lon1, $lat2, $lon2)
+    {
+        $earth = 6371;
+
+        $dLat = deg2rad($lat2 - $lat1);
+        $dLon = deg2rad($lon2 - $lon1);
+
+        $a = sin($dLat / 2) ** 2 +
+            cos(deg2rad($lat1)) *
+            cos(deg2rad($lat2)) *
+            sin($dLon / 2) ** 2;
+
+        return $earth * (2 * asin(sqrt($a)));
+    }
+
+
+    /** Resolve Location by ID or by city name */
+    private function resolveLocation($value)
+    {
+        // Try as MongoDB _id
+        $loc = Location::find($value);
+        if ($loc) return $loc;
+
+        // Try partial match
+        $loc = Location::where('city', 'like', $value)->first();
+        if ($loc) return $loc;
+
+        // Try exact case-insensitive
+        return Location::where('city', $value)->first();
+    }
+
+
+    /** ----------------------------
+     *  CREATE BOOKING
+     * ---------------------------*/
     public function store(Request $req)
     {
         $data = $req->validate([
-            'user_id'     => 'required|string',
-            'trip_id'     => 'required|string',
-            'travel_date' => 'required|date',
-            'passengers'  => 'required|integer|min:1|max:20',
+            'user_id'                 => 'required|string',
+            'vehicle_id'              => 'required|string',
+            'origin_location_id'      => 'required|string',
+            'destination_location_id' => 'required|string',
+            'date'                    => 'required|date',
+            'time'                    => 'required|string',
+            'passenger_name'          => 'required|string',
         ]);
 
-        $trip = Trip::find($data['trip_id']);
-        if (!$trip) return response()->json(['error' => 'Trip not found'], 404);
+        /** VEHICLE **/
+        $vehicle = Vehicle::find($data['vehicle_id']);
+        if (!$vehicle) return response()->json(['error' => 'Vehicle not found'], 404);
 
-        $total = $trip->fare * $data['passengers'];
+        /** ORIGIN **/
+        $origin = $this->resolveLocation($data['origin_location_id']);
+        if (!$origin) return response()->json(['error' => 'Origin location not found'], 404);
 
-        // Create booking (pending)
+        /** DESTINATION **/
+        $dest = $this->resolveLocation($data['destination_location_id']);
+        if (!$dest) return response()->json(['error' => 'Destination location not found'], 404);
+
+        /** RULE 1 — Origin & Destination must be in same division **/
+        if ($origin->division !== $dest->division) {
+            return response()->json([
+                'error' => "Origin and destination must be in the same division."
+            ], 400);
+        }
+
+        /** RULE 2 — Vehicle must belong to Origin City **/
+        if ((string)$vehicle->location_id !== (string)$origin->_id) {
+            return response()->json([
+                'error' => "Vehicle does not belong to the origin city.",
+                'vehicle_location_id' => $vehicle->location_id,
+                'origin_location_id'  => (string)$origin->_id
+            ], 400);
+        }
+
+        /** DISTANCE **/
+        $distance = $this->haversine(
+            $origin->latitude,
+            $origin->longitude,
+            $dest->latitude,
+            $dest->longitude
+        );
+
+        /** ESTIMATED FARE **/
+        $rate = $vehicle->fare_per_km ?? 12;
+        $estimated = round($distance * $rate, 2);
+
+        /** CREATE BOOKING USING YOUR MODEL FIELDS **/
         $booking = Booking::create([
-            'user_id'        => $data['user_id'],
-            'trip_id'        => $trip->_id,
-            'travel_date'    => $data['travel_date'],
-            'passengers'     => $data['passengers'],
-            'total_amount'   => $total,
-            'payment_method' => 'AEROPAY',
-            'payment_status' => 'pending'
+            'user_id'                   => $data['user_id'],
+            'vehicle_id'                => $vehicle->_id,
+            'origin_location_id'        => $origin->_id,
+            'destination_location_id'   => $dest->_id,
+            'date'                      => $data['date'],
+            'time'                      => $data['time'],
+            'passenger_name'            => $data['passenger_name'],
+            'estimated_amount'          => $estimated,
+            'payment_method'            => 'AEROPAY',
+            'payment_status'            => 'pending',
         ]);
 
-        // AeroPay
+        /** AEROPAY **/
         $tx = $this->createAeroPayPayment(
             $data['user_id'],
-            $total,
+            $estimated,
             $booking->_id,
             'SKYROUTE',
             [
-                'trip_code' => $trip->trip_code
+                'origin' => $origin->city,
+                'destination' => $dest->city,
+                'vehicle' => $vehicle->name
             ]
         );
 
@@ -52,26 +132,36 @@ class BookingController extends Controller
             return response()->json(['error' => $tx['message']], 500);
         }
 
+        /** Update booking with transaction **/
         $booking->update([
             'transaction_code' => $tx['transaction_code'],
             'payment_status'   => $tx['status']
         ]);
 
-        return ['message' => 'SkyRoute booking created', 'data' => $booking];
+        return [
+            'message' => 'SkyRoute booking created successfully',
+            'data'    => $booking
+        ];
     }
 
+
+    /** USER BOOKINGS */
     public function userBookings($id)
     {
         return Booking::where('user_id', $id)->get();
     }
 
+
+    /** SHOW BOOKING */
     public function show($id)
     {
-        $booking = Booking::find($id);
-        if (!$booking) return response()->json(['error' => 'Not found'], 404);
-        return $booking;
+        $b = Booking::find($id);
+        if (!$b) return response()->json(['error' => 'Not found'], 404);
+        return $b;
     }
 
+
+    /** CANCEL BOOKING */
     public function cancel($id)
     {
         $booking = Booking::find($id);
@@ -85,54 +175,29 @@ class BookingController extends Controller
         return ['message' => 'Booking cancelled'];
     }
 
-    /** Payment status updater */
+
+    /** UPDATE STATUS */
     public function updateStatus(Request $req, $id)
     {
         $data = $req->validate([
-            'payment_status' => 'required|string|in:pending,paid,failed,cancelled'
+            'payment_status' => 'required|in:pending,paid,failed,cancelled'
         ]);
 
         $booking = Booking::find($id);
+        if (!$booking) return response()->json(['error' => 'Booking not found'], 404);
 
-        if (!$booking) {
-            return response()->json(['error' => 'Booking not found'], 404);
-        }
-
-        if (!$booking->transaction_code) {
-            return response()->json([
-                'error' => 'No AeroPay transaction linked to this booking'
-            ], 400);
-        }
-
-        // -----------------------------------------
-        // 1️⃣ Update Booking Status (Local)
-        // -----------------------------------------
         $booking->payment_status = $data['payment_status'];
         $booking->save();
 
-        // -----------------------------------------
-        // 2️⃣ Sync Status with AeroPay
-        // -----------------------------------------
         $aero = $this->updateAeroPayStatus(
             $booking->transaction_code,
             $data['payment_status']
         );
 
-        if (!$aero['success']) {
-            return response()->json([
-                'warning' => 'Booking updated, but AeroPay update failed',
-                'details' => $aero['message'],
-                'booking' => $booking
-            ], 202);
-        }
-
-        // -----------------------------------------
-        // 3️⃣ Return FINAL Response
-        // -----------------------------------------
-        return response()->json([
-            'message' => 'Payment status updated successfully',
-            'aeropay' => $aero['data'] ?? null,
-            'booking' => $booking
-        ]);
+        return [
+            'message' => 'Payment status updated',
+            'booking' => $booking,
+            'aeropay' => $aero
+        ];
     }
 }

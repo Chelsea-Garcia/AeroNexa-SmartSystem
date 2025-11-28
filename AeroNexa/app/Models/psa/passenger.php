@@ -9,12 +9,12 @@ class Passenger extends Model
     protected $connection = 'philippineskyairway';
     protected $collection = 'passengers';
 
-    protected $primaryKey = '_id';      // <-- important for find(), update(), delete()
-    protected $keyType = 'string';      // MongoDB ObjectId is string
-    public $incrementing = false;       // MongoDB does NOT auto-increment
+    protected $primaryKey = '_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
-        'user_id',             // Aeronexa user who owns this passenger profile
+        'user_id',
         'first_name',
         'last_name',
         'gender',
@@ -22,7 +22,7 @@ class Passenger extends Model
         'nationality',
         'passport_number',
         'passport_expiry',
-        'special_assistance',  // wheelchair, medical assistance, etc.
+        'special_assistance',
         'contact_number',
         'emergency_contact_name',
         'emergency_contact_number'
@@ -32,4 +32,10 @@ class Passenger extends Model
         'birthdate' => 'string',
         'passport_expiry' => 'string'
     ];
+
+    // Passenger can have many bookings
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'passenger_id', '_id');
+    }
 }

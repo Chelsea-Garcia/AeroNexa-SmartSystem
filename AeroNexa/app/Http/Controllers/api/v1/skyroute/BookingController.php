@@ -59,37 +59,26 @@ class BookingController extends Controller
             'date'                    => 'required|date',
             'time'                    => 'required|string',
             'passenger_name'          => 'required|string',
+            'transaction_code'        => 'nullable|string', // <-- added
         ]);
 
-        /** VEHICLE **/
         $vehicle = Vehicle::find($data['vehicle_id']);
         if (!$vehicle) return response()->json(['error' => 'Vehicle not found'], 404);
 
-        /** ORIGIN **/
         $origin = $this->resolveLocation($data['origin_location_id']);
         if (!$origin) return response()->json(['error' => 'Origin location not found'], 404);
 
-        /** DESTINATION **/
         $dest = $this->resolveLocation($data['destination_location_id']);
         if (!$dest) return response()->json(['error' => 'Destination location not found'], 404);
 
-        /** RULE 1 — Origin & Destination must be in same division **/
         if ($origin->division !== $dest->division) {
-            return response()->json([
-                'error' => "Origin and destination must be in the same division."
-            ], 400);
+            return response()->json(['error' => "Origin and destination must be in the same division."], 400);
         }
 
-        /** RULE 2 — Vehicle must belong to Origin City **/
         if ((string)$vehicle->location_id !== (string)$origin->_id) {
-            return response()->json([
-                'error' => "Vehicle does not belong to the origin city.",
-                'vehicle_location_id' => $vehicle->location_id,
-                'origin_location_id'  => (string)$origin->_id
-            ], 400);
+            return response()->json(['error' => "Vehicle does not belong to the origin city."], 400);
         }
 
-        /** DISTANCE **/
         $distance = $this->haversine(
             $origin->latitude,
             $origin->longitude,
@@ -97,11 +86,9 @@ class BookingController extends Controller
             $dest->longitude
         );
 
-        /** ESTIMATED FARE **/
         $rate = $vehicle->fare_per_km ?? 12;
         $estimated = round($distance * $rate, 2);
 
-        /** CREATE BOOKING USING YOUR MODEL FIELDS **/
         $booking = Booking::create([
             'user_id'                   => $data['user_id'],
             'vehicle_id'                => $vehicle->_id,
@@ -115,7 +102,25 @@ class BookingController extends Controller
             'payment_status'            => 'pending',
         ]);
 
-        /** AEROPAY **/
+        /** ---------------------------------------------
+         * 1️⃣ TRUTRAVEL BOOKING
+         * --------------------------------------------*/
+        if (!empty($data['transaction_code'])) {
+
+            $booking->update([
+                'transaction_code' => $data['transaction_code'],
+                'payment_status'   => 'pending',
+            ]);
+
+            return [
+                'message' => 'SkyRoute booking created via TruTravel',
+                'data'    => $booking
+            ];
+        }
+
+        /** ---------------------------------------------
+         * 2️⃣ NORMAL BOOKING (Generate AeroPay Tx)
+         * --------------------------------------------*/
         $tx = $this->createAeroPayPayment(
             $data['user_id'],
             $estimated,
@@ -132,7 +137,6 @@ class BookingController extends Controller
             return response()->json(['error' => $tx['message']], 500);
         }
 
-        /** Update booking with transaction **/
         $booking->update([
             'transaction_code' => $tx['transaction_code'],
             'payment_status'   => $tx['status']
@@ -143,7 +147,6 @@ class BookingController extends Controller
             'data'    => $booking
         ];
     }
-
 
     /** USER BOOKINGS */
     public function userBookings($id)

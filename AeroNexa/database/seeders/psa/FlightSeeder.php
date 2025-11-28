@@ -30,15 +30,31 @@ class FlightSeeder extends Seeder
 
             // aircraft filter logic unchanged
             $candidates = $aircrafts->filter(function ($ac) use ($route) {
-                if (isset($ac->range_km) && $ac->range_km) {
-                    return $ac->range_km >= ($route->distance_km ?? 0);
+                $distance = $route->distance_km ?? 0;
+
+                // Short domestic
+                if ($distance <= 800) {
+                    return str_contains($ac->model, 'ATR') || str_contains($ac->model, 'A320');
                 }
-                return true;
+
+                // Medium domestic/regional
+                if ($distance > 800 && $distance <= 3000) {
+                    return str_contains($ac->model, 'A320') || str_contains($ac->model, 'A321');
+                }
+
+                // Long-haul
+                if ($distance > 3000) {
+                    return str_contains($ac->model, 'A330') || str_contains($ac->model, 'Boeing 777');
+                }
+
+                return false;
             })->values();
 
+            // fallback if none match
             if ($candidates->isEmpty()) {
                 $candidates = $aircrafts;
             }
+
 
             // Generate time slots according to new logic
             $timeSlots = $this->generateDistributedSlots($frequency);
@@ -57,6 +73,15 @@ class FlightSeeder extends Seeder
                     $route->distance_km ?? null
                 );
 
+                $seats = null;
+                if (is_array($air->capacity)) {
+                    $seats = $air->capacity['economy'] ?? null;
+                } elseif (is_object($air->capacity)) {
+                    $seats = $air->capacity->economy ?? null;
+                } else {
+                    $seats = $air->capacity ?? null;
+                }
+
                 $arrTime = (clone $depTime)->addMinutes($duration);
 
                 $depTimeFormatted = $depTime->format('H:i');
@@ -70,12 +95,10 @@ class FlightSeeder extends Seeder
                     'departure_time'  => $depTimeFormatted,
                     'arrival_time'    => $arrTimeFormatted,
                     'duration_min'    => $duration,
-                    'aircraft_code'   => $air->code ?? ($air->registration ?? null),
+                    'aircraft_code'   => $air->aircraft_code ?? ($air->registration ?? null),
                     'aircraft_model'  => $air->model ?? null,
-                    'seats'           => $air->seats ?? null,
-                    'basePrice'       => $route->basePrice ?? null,
-                    'created_at'      => now(),
-                    'updated_at'      => now(),
+                    'seats' => $seats,
+                    'price'       => $route->price ?? null,
                 ];
             }
         }

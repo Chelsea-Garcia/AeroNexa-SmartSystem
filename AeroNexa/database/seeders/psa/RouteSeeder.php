@@ -38,7 +38,7 @@ class RouteSeeder extends Seeder
                     'type'          => 'domestic',
                     'distance_km'   => round($distance),
                     'duration'      => $this->estimateDomesticDuration($distance),
-                    'basePrice'     => $this->estimateDomesticPrice($distance),
+                    'price'     => $this->estimateDomesticPrice($distance),
                     'frequency'     => $this->getFrequency($distance),
                 ];
             }
@@ -65,7 +65,7 @@ class RouteSeeder extends Seeder
                     'type'          => 'international',
                     'distance_km'   => round($distance),
                     'duration'      => $countryDuration,
-                    'basePrice'     => $countryPrice,
+                    'price'     => $countryPrice,
                     'frequency'     => $this->getFrequency($distance),
                 ];
 
@@ -76,7 +76,7 @@ class RouteSeeder extends Seeder
                     'type'          => 'international',
                     'distance_km'   => round($distance),
                     'duration'      => $countryDuration,
-                    'basePrice'     => $countryPrice,
+                    'price'     => $countryPrice,
                     'frequency'     => $this->getFrequency($distance),
                 ];
             }

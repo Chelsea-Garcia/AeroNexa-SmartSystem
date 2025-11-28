@@ -41,9 +41,6 @@ class BookingSeeder extends Seeder
 
                 'transaction_code' => null,
                 'payment_status'   => 'pending',
-
-                'created_at'       => now(),
-                'updated_at'       => now(),
             ],
         ];
 

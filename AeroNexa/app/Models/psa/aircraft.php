@@ -7,20 +7,27 @@ use MongoDB\Laravel\Eloquent\Model;
 class Aircraft extends Model
 {
     protected $connection = 'philippineskyairway';
-    protected $collection = 'airports';
+    protected $collection = 'aircrafts';
+
+    protected $primaryKey = '_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
-        'aircraftCode',
+        'aircraft_code',
         'model',
         'manufacturer',
         'capacity',
         'range_km',
         'status',
-        'yearOfManufacture',
+        'year_of_manufacture',
     ];
 
-    protected $casts = [
-        'capacity' => 'array',
-        'yearOfManufacture' => 'integer'
-    ];
+    public $timestamps = false;
+
+    // Flights using this aircraft (Flight has aircraft_code)
+    public function flights()
+    {
+        return $this->hasMany(Flight::class, 'aircraft_code', 'aircraft_code');
+    }
 }

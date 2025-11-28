@@ -2,12 +2,16 @@
 
 namespace App\Models\psa;
 
-use Mongodb\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Flight extends Model
 {
-    protected $connection = 'philippineskyairway';   // if you're using MongoDB
-    protected $collection = 'flights';   // collection name
+    protected $connection = 'philippineskyairway';
+    protected $collection = 'flights';
+
+    protected $primaryKey = '_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
         'flight_number',
@@ -22,4 +26,35 @@ class Flight extends Model
         'price',
         'status'
     ];
+
+    public $timestamps = false;
+
+    // Flight belongs to a route
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'route_id', '_id');
+    }
+
+    // Airports
+    public function originAirport()
+    {
+        return $this->belongsTo(Airport::class, 'origin', 'code');
+    }
+
+    public function destinationAirport()
+    {
+        return $this->belongsTo(Airport::class, 'destination', 'code');
+    }
+
+    // Aircraft
+    public function aircraft()
+    {
+        return $this->belongsTo(Aircraft::class, 'aircraft_code', 'aircraft_code');
+    }
+
+    // Bookings of this flight
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class, 'flight_id', '_id');
+    }
 }

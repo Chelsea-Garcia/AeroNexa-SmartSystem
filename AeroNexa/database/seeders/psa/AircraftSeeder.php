@@ -20,21 +20,24 @@ class AircraftSeeder extends Seeder
             ['code' => 'A330-PSA1',  'model' => 'Airbus A330-300',    'eco' => 350, 'biz' => 18, 'range' => 11300],
             ['code' => 'A330-PSA2',  'model' => 'Airbus A330-300',    'eco' => 350, 'biz' => 18, 'range' => 11300],
             ['code' => 'B777-PSA1',  'model' => 'Boeing 777-300ER',   'eco' => 316, 'biz' => 42, 'range' => 13650],
+            ['code' => 'B777-PSA2',  'model' => 'Boeing 777-300ER',   'eco' => 316, 'biz' => 42, 'range' => 13650],
+            ['code' => 'B777-PSA3',  'model' => 'Boeing 777-300ER',   'eco' => 316, 'biz' => 42, 'range' => 13650],
         ];
 
         foreach ($aircrafts as $a) {
+
             Aircraft::create([
-                'aircraftCode' => $a['code'],
-                'model'        => $a['model'],
-                'manufacturer' => str_contains($a['model'], 'Boeing') ? 'Boeing' : 'Airbus',
-                'capacity'     => [
-                    'economy' => $a['eco'],
+                'aircraft_code' => $a['code'],
+                'model'         => $a['model'],
+                'manufacturer'  => str_contains($a['model'], 'Boeing') ? 'Boeing' : 'Airbus',
+                'capacity'      => [
+                    'economy'  => $a['eco'],
                     'business' => $a['biz'],
-                    'total' => $a['eco'] + $a['biz']
+                    'total'    => $a['eco'] + $a['biz']
                 ],
-                'range_km'         => $a['range'],
-                'status'           => 'active',
-                'yearOfManufacture' => rand(2015, 2024),
+                'range_km'           => $a['range'],
+                'status'             => 'active',
+                'year_of_manufacture' => rand(2015, 2024),
             ]);
         }
     }

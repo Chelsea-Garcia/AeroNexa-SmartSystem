@@ -30,6 +30,7 @@ class BookingController extends Controller
             'property_id' => 'required|string',
             'check_in'    => 'required|date',
             'check_out'   => 'required|date|after:check_in',
+            'transaction_code' => 'nullable|string', // <-- Added for TruTravel
         ]);
 
         $property = Property::find($data['property_id']);
@@ -52,7 +53,25 @@ class BookingController extends Controller
             'payment_status' => 'pending',
         ]);
 
-        // Create AeroPay transaction
+        /** ---------------------------------------------
+         * 1️⃣ IF TRUTRAVEL SENT A TRANSACTION CODE
+         * --------------------------------------------*/
+        if (!empty($data['transaction_code'])) {
+
+            $booking->update([
+                'transaction_code' => $data['transaction_code'],
+                'payment_status'   => 'pending',
+            ]);
+
+            return response()->json([
+                'message' => 'Aureliya booking created via TruTravel',
+                'data'    => $booking
+            ]);
+        }
+
+        /** ---------------------------------------------
+         * 2️⃣ NORMAL BOOKING → Generate AeroPay transaction
+         * --------------------------------------------*/
         $tx = $this->createAeroPayPayment(
             $data['user_id'],
             $totalPrice,

@@ -20,7 +20,7 @@ Route::prefix('psa')->group(function () {
 
     // Passengers
     Route::post('/passengers', [PassengerController::class, 'store']);
-    Route::get('/passengers/user/{id}', [PassengerController::class, 'showByUser']);
+    Route::get('/passengers/user/{user_id}', [PassengerController::class, 'showByUser']);
     Route::put('/passengers/{id}', [PassengerController::class, 'update']);
 
     // Bookings

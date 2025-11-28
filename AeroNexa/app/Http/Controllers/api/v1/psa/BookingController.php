@@ -8,6 +8,7 @@ use App\Models\psa\Flight;
 use App\Models\psa\Passenger;
 use Illuminate\Http\Request;
 use App\Traits\HandlesAeroPay;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
@@ -20,6 +21,7 @@ class BookingController extends Controller
             'passenger_id' => 'required|string',
             'flight_id'    => 'required|string',
             'flight_date'  => 'required|date',
+            'transaction_code' => 'nullable|string', // <-- added
         ]);
 
         $passenger = Passenger::find($data['passenger_id']);
@@ -29,21 +31,35 @@ class BookingController extends Controller
         if (!$flight) return response()->json(['error' => 'Flight not found'], 404);
 
         $booking = Booking::create([
+            '_id'            => Str::uuid()->toString(),
             'user_id'        => $data['user_id'],
             'passenger_id'   => $passenger->_id,
             'flight_id'      => $flight->_id,
             'flight_date'    => $data['flight_date'],
             'departure_time' => substr($flight->departure_time, 0, 5),
             'arrival_time'   => substr($flight->arrival_time, 0, 5),
-            'total_amount'   => $flight->basePrice,
+            'total_amount'   => $flight->price,
             'payment_method' => 'AEROPAY',
             'payment_status' => 'pending',
         ]);
 
-        // AeroPay
+        /** ---------------------------------------------
+         * 1️⃣ TRUTRAVEL BOOKING (transaction sent)
+         * --------------------------------------------*/
+        if (!empty($data['transaction_code'])) {
+
+            $booking->update([
+                'transaction_code' => $data['transaction_code'],
+                'payment_status'   => 'pending',
+            ]);
+
+            return ['message' => 'PSA booking created via TruTravel', 'data' => $booking];
+        }
+
+        /** NORMAL AEROPAY HANDLING */
         $tx = $this->createAeroPayPayment(
             $data['user_id'],
-            $flight->basePrice,
+            $flight->price,
             $booking->_id,
             'PSA',
             [

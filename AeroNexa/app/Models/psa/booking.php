@@ -2,7 +2,7 @@
 
 namespace App\Models\psa;
 
-use Mongodb\Laravel\Eloquent\Model;
+use MongoDB\Laravel\Eloquent\Model;
 
 class Booking extends Model
 {
@@ -26,13 +26,15 @@ class Booking extends Model
         'total_amount' => 'float',
     ];
 
+    // Passenger of the booking
     public function passenger()
     {
-        return $this->belongsTo(Passenger::class, 'passenger_id');
+        return $this->belongsTo(Passenger::class, 'passenger_id', '_id');
     }
 
+    // Flight of the booking
     public function flight()
     {
-        return $this->belongsTo(Flight::class, 'flight_id');
+        return $this->belongsTo(Flight::class, 'flight_id', '_id');
     }
 }

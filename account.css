@@ -495,71 +495,149 @@ select {
 }
 
 /* ============================================
-   SETTINGS STYLES 
+   SETTINGS STYLES
    ============================================ */
 
 .settings-panel {
-    background: linear-gradient(180deg, #ffffff 0%, #fbfdff 100%);
-    border-radius: 10px;
-    padding: 30px;
-    box-shadow: 0 6px 18px rgba(3,127,190,0.08);
+    background: white; /* Use a clean white background */
+    border-radius: 16px; /* Match lux-profile-card radius */
+    padding: 35px; /* Match lux-profile-card padding */
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08); /* Match lux-profile-card shadow */
     max-width: 900px;
+    border-left: 8px solid #037FBE; /* A primary color border for visual interest */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.setting-group {
+    padding-bottom: 25px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.setting-group:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.setting-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.setting-header i {
+    font-size: 24px;
+    color: #04498D; /* Primary color for icons */
+}
+
+.setting-header h3 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 700;
+    color: #04498D;
+}
+
+.setting-description {
+    font-size: 14px;
+    color: #666;
+    margin: -15px 0 25px 40px; /* Aligned with header text */
 }
 
 .settings-row {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     margin-bottom: 16px;
+    padding: 10px 0; /* Add padding for separation */
+    border-bottom: 1px dashed #f0f0f0;
+}
+
+.settings-row:last-of-type {
+    border-bottom: none;
 }
 
 .settings-row label {
-    width: 200px;
+    width: 250px; /* Give labels more space */
+    min-width: 250px;
     font-weight: 600;
-    color: #04498D;
+    color: #333; /* Darker text for readability */
+    font-size: 14px;
 }
 
 .settings-row select,
 .settings-row input[type="password"] {
     flex: 1;
-    padding: 10px 12px;
+    padding: 13px 15px; /* Bigger padding for input/select */
     border-radius: 8px;
-    border: 1px solid #e6eef6;
-    background: #fff;
-    box-shadow: inset 0 1px 2px rgba(3,127,190,0.02);
+    border: 1px solid #dcdcdc;
+    background: #f9fafc; /* Light background for input fields */
+    box-shadow: none;
     font-size: 14px;
+    transition: border-color 0.2s;
+}
+
+.settings-row select:focus,
+.settings-row input[type="password"]:focus {
+    border-color: #037FBE; /* Highlight on focus */
+    outline: none;
 }
 
 .settings-actions {
     display: flex;
-    gap: 12px;
-    margin-top: 10px;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: 15px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.save-settings, .reset-settings {
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s, filter 0.2s;
 }
 
 .save-settings {
-    background: linear-gradient(90deg,#037FBE 0%, #04498D 100%);
+    background: linear-gradient(90deg, #037FBE 0%, #04498D 100%);
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    font-weight: 700;
-    cursor: pointer;
 }
 
-.save-settings:hover { filter: brightness(0.95); }
+.save-settings:hover { 
+    filter: brightness(1.1);
+}
 
 .reset-settings {
-    background: transparent;
+    background: #e9ecef;
     color: #04498D;
-    border: 1px solid #dbeffb;
-    padding: 10px 16px;
-    border-radius: 8px;
-    cursor: pointer;
+    border: 1px solid #dcdcdc;
+}
+
+.reset-settings:hover {
+    background: #dee2e6;
 }
 
 @media (max-width: 900px) {
-    .settings-row { flex-direction: column; align-items: stretch; }
-    .settings-row label { width: 100%; }
+    .settings-row { 
+        flex-direction: column; 
+        align-items: stretch;
+        gap: 8px; 
+    }
+    .settings-row label { 
+        width: 100%; 
+        min-width: initial;
+    }
+    .setting-description {
+        margin-left: 0;
+    }
+    .settings-actions {
+        justify-content: stretch;
+        flex-direction: column-reverse;
+    }
 }
 
 .travel-card {
@@ -744,3 +822,144 @@ select {
     color: #047857;
 }
 
+/* =======================================
+   PREMIUM AIRLINE STYLE PROFILE UI
+   ======================================= */
+
+.lux-profile-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 35px;
+}
+
+/* HEADER CARD */
+.lux-profile-header {
+    background: linear-gradient(135deg, #037FBE, #04498D);
+    padding: 35px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    color: #fff;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.lux-profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid #FFDD55;
+    box-shadow: 0 0 10px rgba(255, 221, 85, 0.6);
+}
+
+.lux-profile-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.lux-profile-info h2 {
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+}
+
+.lux-subtitle {
+    margin: 5px 0 15px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.lux-photo-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.lux-btn-primary {
+    background: #FFDD55;
+    color: #022c54;
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.lux-file-name {
+    font-size: 13px;
+    opacity: 0.8;
+}
+
+/* MAIN FORM CARD */
+.lux-profile-card {
+    background: white;
+    padding: 35px;
+    border-radius: 16px;
+    border-left: 5px solid #FFDD55;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.lux-section-title {
+    margin: 0 0 25px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #022c54;
+}
+
+.lux-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.lux-form-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #022c54;
+}
+
+.lux-form-group input,
+.lux-form-group select {
+    padding: 13px 15px;
+    border-radius: 8px;
+    border: 1px solid #dcdcdc;
+    font-size: 14px;
+    background: #f9fafc;
+}
+
+.lux-grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+.lux-btn-submit {
+    width: 100%;
+    background: #022c54;
+    color: white;
+    padding: 15px 0;
+    margin-top: 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.lux-btn-submit:hover {
+    background: #04498D;
+}
+
+/* RESPONSIVE FIX */
+@media (max-width: 700px) {
+    .lux-grid-2 {
+        grid-template-columns: 1fr;
+    }
+    .lux-profile-header {
+        flex-direction: column;
+        text-align: center;
+    }
+}

@@ -19,7 +19,7 @@
             </div>
             <ul class="nav-menu">
                 <li><a href="homepage.html" class="nav-link">HOME</a></li>
-                <li><a href="psa.html" class="nav-link">PHILLIPINE SKY AIRWAY</a></li>
+                <li><a href="psa.html" class="nav-link">PHILIPPINE SKY AIRWAY</a></li>
                 <li><a href="aureliya.html" class="nav-link">AURELI-YA!</a></li>
                 <li><a href="trutravel.html" class="nav-link">TRUTRAVEL</a></li>
                 <li><a href="skyroute.html" class="nav-link">SKYROUTE</a></li>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="main-content-wrapper">
-        
+
         <div class="sidebar">
             <div class="sidebar-header">Account Info</div>
             <ul class="sidebar-menu">
@@ -58,60 +58,72 @@
 
         <div class="account-details-area">
 
-            <div id="profile-content" class="content-section">
-                
-                <div class="photo-upload-container">
-                    <div class="user-profile-photo">
-                        <img id="profile-photo-img" src="profile.png" alt="User Profile">
+<div id="profile-content" class="content-section">
+
+    <div class="lux-profile-wrapper">
+
+        <!-- PROFILE HEADER CARD -->
+        <div class="lux-profile-header">
+            <div class="lux-profile-photo">
+                <img id="profile-photo-img" src="profile.png" alt="Profile Photo">
+            </div>
+
+            <div class="lux-profile-info">
+                <h2>Your Profile</h2>
+                <p class="lux-subtitle">Manage your personal information and account settings</p>
+
+                <div class="lux-photo-actions">
+                    <input id="profile-photo-input" type="file" accept="image/*" hidden>
+                    <button id="choose-photo" class="lux-btn-primary">Upload New Photo</button>
+                    <span id="upload-filename" class="lux-file-name">No file chosen</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ACCOUNT INFORMATION CARD -->
+        <div class="lux-profile-card">
+            <h3 class="lux-section-title">Account Information</h3>
+
+            <form id="profile-form" class="lux-form">
+
+                <div class="lux-grid-2">
+                    <div class="lux-form-group">
+                        <label for="fullName">Full Name*</label>
+                        <input type="text" id="fullName" value="Tonmoy karmaker">
                     </div>
-                    <div class="upload-text">
-                        <h2 id="upload-heading">Upload a New Photo</h2>
-                        <p id="upload-filename">No file chosen</p>
-                    </div>
-                    <div class="photo-controls">
-                        <input id="profile-photo-input" type="file" accept="image/*" style="display:none">
-                        <button type="button" id="choose-photo" class="update-btn">Choose Photo</button>
+
+                    <div class="lux-form-group">
+                        <label for="email">Email Address*</label>
+                        <input type="email" id="email" value="tonmoydesigner@gmail.com">
                     </div>
                 </div>
-                
-                <div class="user-info-form">
-                    <h1>Change User Information here</h1>
-                    <form id="profile-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="fullName">Full Name*</label>
-                                <input type="text" id="fullName" value="Tonmoy karmaker">
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email Address*</label>
-                                <input type="email" id="email" value="tonmoydesigner@gmail.com">
-                            </div>
-                        </div>
 
-                        <div class="form-group full-width">
-                            <label for="address">Address*</label>
-                            <input type="text" id="address" value="190 Upor Bazar, Natore Sadar, Natore">
-                        </div>
+                <div class="lux-form-group">
+                    <label for="address">Address*</label>
+                    <input type="text" id="address" value="190 Upor Bazar, Natore Sadar, Natore">
+                </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="city">City</label>
-                                <input type="text" id="city" value="Natore">
-                            </div>
-                            <div class="form-group">
-                                <label for="state">State/Province</label>
-                                <input type="text" id="state" value="Rajshahi">
-                            </div>
-                        </div>
+                <div class="lux-grid-2">
+                    <div class="lux-form-group">
+                        <label for="city">City</label>
+                        <input type="text" id="city" value="Natore">
+                    </div>
 
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="zipCode">Zip Code</label>
-                                <input type="text" id="zipCode" value="6400">
-                            </div>
-                            <div class="form-group">
-                                <label for="country">Country</label>
-                                <select id="country">
+                    <div class="lux-form-group">
+                        <label for="state">State/Province</label>
+                        <input type="text" id="state" value="Rajshahi">
+                    </div>
+                </div>
+
+                <div class="lux-grid-2">
+                    <div class="lux-form-group">
+                        <label for="zipCode">Zip Code</label>
+                        <input type="text" id="zipCode" value="6400">
+                    </div>
+
+                    <div class="lux-form-group">
+                        <label for="country">Country</label>
+                            <select id="country">
                                     <option value="">Select country</option>
                                     <option value="AF">Afghanistan</option>
                                     <option value="AL">Albania</option>
@@ -357,16 +369,17 @@
                             </div>
                         </div>
 
-                        <button type="submit" class="submit-update-btn">Update Information</button>
-                    </form>
-                </div>
-            </div>
+                         <button type="submit" class="lux-btn-submit">Save Changes</button>
+                </form>
+         </div>
+    </div>
+
+</div>
 
             <div id="dashboard-content" class="content-section hidden">
                 <h2>Dashboard Overview</h2>
-                
+
                 <div class="dashboard-container">
-                    <!-- Account Summary Section -->
                     <div class="summary-section">
                         <h3>Account Summary</h3>
                         <div class="summary-cards">
@@ -401,7 +414,6 @@
                         </div>
                     </div>
 
-                    <!-- Travel Statistics Section -->
                     <div class="stats-section">
                         <h3>Travel Statistics</h3>
                         <div class="stats-cards">
@@ -424,7 +436,6 @@
                         </div>
                     </div>
 
-                    <!-- Upcoming Travels Section -->
                     <div class="upcoming-section">
                         <h3>Upcoming Travels</h3>
                         <div class="upcoming-travels">
@@ -601,50 +612,82 @@
                 </div>
             </div>
 
-            <div id="settings-content" class="content-section hidden">
-                <h2>Settings</h2>
+           <div id="settings-content" class="content-section hidden">
+                <h2>Account Settings</h2>
+
                 <div class="settings-panel">
                     <form id="settings-form">
-                        <div class="settings-row">
-                            <label for="pref-currency">Preferred Currency</label>
-                            <select id="pref-currency">
-                                <option value="PHP">PHP</option>
-                                <option value="BDT">BDT</option>
-                                <option value="USD">USD</option>
-                            </select>
+                        
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <i class="fas fa-globe"></i>
+                                <h3>General Preferences</h3>
+                            </div>
+                            <p class="setting-description">Manage your currency, language, and global display settings.</p>
+
+                            <div class="settings-row">
+                                <label for="pref-currency">Preferred Currency</label>
+                                <select id="pref-currency">
+                                    <option value="PHP">PHP (Philippine Peso)</option>
+                                    <option value="BDT">BDT (Bangladeshi Taka)</option>
+                                    <option value="USD">USD (US Dollar)</option>
+                                </select>
+                            </div>
+    
+                            <div class="settings-row">
+                                <label for="pref-language">Display Language</label>
+                                <select id="pref-language">
+                                    <option value="en">English (US)</option>
+                                    <option value="fil">Filipino</option>
+                                    <option value="bn">Bengali</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="settings-row">
-                            <label for="notif-email">Email Notifications</label>
-                            <select id="notif-email">
-                                <option value="enabled">Enabled</option>
-                                <option value="disabled">Disabled</option>
-                            </select>
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>Privacy & Security</h3>
+                            </div>
+                            <p class="setting-description">Update your password and control how your data is shared.</p>
+
+                            <div class="settings-row">
+                                <label for="privacy-mode">Profile Visibility</label>
+                                <select id="privacy-mode">
+                                    <option value="standard">Standard (Public Travel Summary)</option>
+                                    <option value="private">Private (Only you can see data)</option>
+                                </select>
+                            </div>
+
+                            <div class="settings-row">
+                                <label for="change-password">Change Password</label>
+                                <input id="change-password" type="password" placeholder="Enter new password" />
+                            </div>
                         </div>
 
-                        <div class="settings-row">
-                            <label for="privacy-mode">Privacy Mode</label>
-                            <select id="privacy-mode">
-                                <option value="standard">Standard</option>
-                                <option value="private">Private</option>
-                            </select>
-                        </div>
+                        <div class="setting-group">
+                            <div class="setting-header">
+                                <i class="fas fa-bell"></i>
+                                <h3>Communication Preferences</h3>
+                            </div>
+                            <p class="setting-description">Decide how we can contact you regarding your bookings.</p>
 
-                        <div class="settings-row">
-                            <label for="change-password">Change Password</label>
-                            <input id="change-password" type="password" placeholder="New password" />
+                            <div class="settings-row">
+                                <label for="notif-email">Email Notifications</label>
+                                <select id="notif-email">
+                                    <option value="enabled">Enabled (Recommended for updates)</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="settings-actions">
-                            <button type="button" id="save-settings" class="save-settings">Save Changes</button>
-                            <button type="button" id="reset-settings" class="reset-settings">Reset</button>
+                            <button type="button" id="reset-settings" class="reset-settings">Reset to Defaults</button>
+                            <button type="button" id="save-settings" class="save-settings">Save All Changes</button>
                         </div>
                     </form>
                 </div>
             </div>
-
-        </div>
-    </div>
 
     <script>
         const menuItems = document.querySelectorAll('.menu-item');
@@ -655,12 +698,17 @@
                 e.preventDefault(); 
                 const targetId = this.getAttribute('data-target');
 
+                // 1. Remove 'active' class from all menu items
                 menuItems.forEach(i => i.classList.remove('active'));
+                
+                // 2. Add 'active' class to the clicked menu item
 
                 this.classList.add('active');
 
+                // 3. Hide all content sections
                 contentSections.forEach(section => section.classList.add('hidden'));
 
+                // 4. Show the target content section
                 const targetElement = document.getElementById(targetId);
                 if (targetElement) {
                     targetElement.classList.remove('hidden');
@@ -692,14 +740,18 @@
                 if (dashLocation) dashLocation.textContent = [address, city, state, zip, country].filter(Boolean).join(', ');
 
                 const dashPhone = document.getElementById('dash-phone');
+                // phone input not present in form; keep existing value
 
+                // Update passenger name in history and upcoming travel cards
                 const passengerEls = document.querySelectorAll('.passenger-name');
                 passengerEls.forEach(el => el.textContent = fullName || '—');
 
+                // Optionally show a small confirmation
                 alert('Profile updated and synced to Dashboard & History.');
             });
         }
 
+        // --- Photo chooser + preview handling ---
         (function(){
             const chooseBtn = document.getElementById('choose-photo');
             const fileInput = document.getElementById('profile-photo-input');
@@ -719,6 +771,56 @@
                     photoImg.src = ev.target.result;
                 };
                 reader.readAsDataURL(file);
+            });
+        })();
+
+        // --- Settings Handler ---
+        (function(){
+            const saveBtn = document.getElementById('save-settings');
+            const resetBtn = document.getElementById('reset-settings');
+            const settingsForm = document.getElementById('settings-form');
+
+            if (!saveBtn || !resetBtn || !settingsForm) return;
+
+            // 1. Save Changes Logic
+            saveBtn.addEventListener('click', function(e){
+                e.preventDefault();
+
+                const currency = document.getElementById('pref-currency').value;
+                const language = document.getElementById('pref-language')?.value || 'en'; // Added language
+                const notifications = document.getElementById('notif-email').value;
+                const privacy = document.getElementById('privacy-mode').value;
+                const password = document.getElementById('change-password');
+                
+                // Read the new password for demonstration, then clear the input.
+                const newPassword = password.value ? 'Password was changed' : 'Password was not changed';
+
+                // Simulate saving settings (e.g., to a backend)
+                console.log('--- Settings Saved ---');
+                console.log(`Currency: ${currency}`);
+                console.log(`Language: ${language}`);
+                console.log(`Notifications: ${notifications}`);
+                console.log(`Privacy Mode: ${privacy}`);
+                console.log(`Password Status: ${newPassword}`);
+
+                // Clear password field after simulated save
+                password.value = '';
+                
+                alert('Settings saved successfully!');
+            });
+
+            // 2. Reset Logic
+            resetBtn.addEventListener('click', function(e){
+                e.preventDefault();
+                
+                // Reset form fields to their defaults (first option/empty)
+                document.getElementById('pref-currency').value = 'PHP';
+                document.getElementById('pref-language').value = 'en'; // Reset language
+                document.getElementById('notif-email').value = 'enabled';
+                document.getElementById('privacy-mode').value = 'standard';
+                document.getElementById('change-password').value = '';
+
+                alert('Settings have been reset to default values.');
             });
         })();
     </script>

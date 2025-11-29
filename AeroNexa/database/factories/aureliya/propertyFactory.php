@@ -9,183 +9,584 @@ class PropertyFactory extends Factory
 {
     protected $countryCities = [
 
-        // ============================
-        // Philippines
-        // ============================
+        // ============================================================
+        //  PHILIPPINES (Luzon / Visayas / Mindanao)
+        // ============================================================
         'Philippines' => [
-            'Manila',
-            'Cebu',
-            'Angeles',
-            'Davao',
-            'Zamboanga',
-            'Iloilo',
-            'Palawan',
-            'Kalibo',
-            'Bacolod',
-            'Tuguegarao',
-            // extra cities
-            'Baguio',
-            'Tagaytay',
-            'Quezon City',
-            'Pasig'
+            'Luzon' => [
+                'Manila',
+                'Quezon City',
+                'Pasig',
+                'Angeles',
+                'Baguio',
+                'Olongapo',
+                'Bataan',
+            ],
+            'Visayas' => [
+                'Cebu',
+                'Iloilo',
+                'Bacolod',
+                'Kalibo',
+                'Tacloban',
+                'Dumaguete',
+            ],
+            'Mindanao' => [
+                'Davao',
+                'Zamboanga',
+                'Cagayan de Oro',
+                'General Santos',
+            ],
         ],
 
-        // Japan
+        // ============================================================
+        // JAPAN (Kanto / Kansai / Chubu / Hokkaido)
+        // ============================================================
         'Japan' => [
-            'Tokyo',
-            'Osaka',
-            // extra
-            'Kyoto',
-            'Nagoya',
-            'Sapporo'
+            'Kanto' => [
+                'Tokyo',
+                'Yokohama',
+                'Saitama',
+            ],
+            'Kansai' => [
+                'Osaka',
+                'Kyoto',
+                'Kobe',
+            ],
+            'Chubu' => [
+                'Nagoya',
+                'Shizuoka',
+                'Kanazawa',
+            ],
+            'Hokkaido' => [
+                'Sapporo',
+                'Hakodate',
+                'Asahikawa',
+            ],
         ],
 
-        // South Korea
+        // ============================================================
+        // SOUTH KOREA
+        // ============================================================
         'South Korea' => [
-            'Incheon',
-            'Seoul',
-            // extra
-            'Busan',
-            'Daegu'
+            'Seoul Capital Area' => [
+                'Seoul',
+                'Incheon',
+                'Suwon',
+            ],
+            'Yeongnam' => [
+                'Busan',
+                'Daegu',
+                'Ulsan',
+            ],
         ],
 
-        // China
+        // ============================================================
+        // CHINA
+        // ============================================================
         'China' => [
-            'Beijing',
-            'Shanghai',
-            'Guangzhou',
-            'Hong Kong',
-            // extra
-            'Shenzhen',
-            'Chengdu'
+            'East China' => [
+                'Shanghai',
+                'Hangzhou',
+                'Nanjing',
+            ],
+            'South China' => [
+                'Shenzhen',
+                'Guangzhou',
+                'Hong Kong',
+            ],
+            'North China' => [
+                'Beijing',
+                'Chengdu',
+                'Tianjin',
+            ],
         ],
 
-        'Singapore' => ['Singapore'],
+        // ============================================================
+        // THE REST (ONLY REALISTIC DIVISIONS)
+        // ============================================================
+        'Singapore' => [
+            'Singapore Region' => [
+                'Singapore'
+            ],
+        ],
 
         'Thailand' => [
-            'Bangkok',
-            // extra
-            'Chiang Mai',
-            'Pattaya'
+            'Central' => [
+                'Bangkok',
+                'Nonthaburi',
+                'Ayutthaya',
+            ],
+            'Northern' => [
+                'Chiang Mai',
+                'Chiang Rai',
+                'Lampang',
+            ],
+            'Eastern' => [
+                'Pattaya',
+                'Chonburi',
+                'Rayong',
+            ],
         ],
 
         'Malaysia' => [
-            'Kuala Lumpur',
-            // extra
-            'Penang',
-            'Johor Bahru'
+            'Klang Valley' => [
+                'Kuala Lumpur',
+                'Petaling Jaya',
+                'Shah Alam',
+            ],
+            'Northern Region' => [
+                'Penang',
+                'Ipoh',
+                'Alor Setar',
+            ],
+            'Southern Region' => [
+                'Johor Bahru',
+                'Batu Pahat',
+                'Kluang',
+            ],
         ],
 
         'India' => [
-            'Delhi',
-            'Mumbai',
-            // extra
-            'Bangalore',
-            'Hyderabad'
+            'North India' => [
+                'Delhi',
+                'Jaipur',
+                'Chandigarh',
+            ],
+            'West India' => [
+                'Mumbai',
+                'Pune',
+                'Ahmedabad',
+            ],
+            'South India' => [
+                'Bangalore',
+                'Hyderabad',
+                'Chennai',
+            ],
         ],
 
-        'Taiwan' => ['Taipei', 'Taichung'],
-        'Qatar' => ['Doha'],
-        'UAE' => ['Dubai', 'Abu Dhabi'],
+        'Taiwan' => [
+            'Northern Taiwan' => [
+                'Taipei',
+                'Keelung',
+                'New Taipei',
+            ],
+            'Central Taiwan' => [
+                'Taichung',
+                'Changhua',
+                'Miaoli',
+            ],
+        ],
 
-        // ============================
-        // Europe
-        // ============================
+        'Qatar' => [
+            'Central Qatar' => [
+                'Doha',
+            ],
+        ],
+
+        'UAE' => [
+            'Dubai Emirate' => [
+                'Dubai',
+                'Hatta',
+                'Jebel Ali',
+            ],
+            'Abu Dhabi Emirate' => [
+                'Abu Dhabi',
+                'Al Ain',
+                'Madinat Zayed',
+            ],
+        ],
+
         'United Kingdom' => [
-            'London',
-            // extra
-            'Manchester',
-            'Liverpool'
+            'London Region' => [
+                'London',
+                'Croydon',
+                'Westminster',
+            ],
+            'Northwest England' => [
+                'Manchester',
+                'Liverpool',
+                'Blackpool',
+            ],
         ],
 
-        'France' => ['Paris', 'Lyon'],
-        'Germany' => ['Frankfurt', 'Berlin'],
-        'Netherlands' => ['Amsterdam', 'Rotterdam'],
-        'Spain' => ['Madrid', 'Barcelona', 'Valencia'],
-        'Italy' => ['Rome', 'Milan'],
-        'Switzerland' => ['Zurich', 'Geneva'],
-        'Türkiye' => ['Istanbul', 'Ankara'],
+        'France' => [
+            'Île-de-France' => [
+                'Paris',
+                'Versailles',
+                'Boulogne-Billancourt',
+            ],
+            'Auvergne-Rhône-Alpes' => [
+                'Lyon',
+                'Grenoble',
+                'Saint-Étienne',
+            ],
+        ],
 
-        // ============================
-        // North America
-        // ============================
+        'Germany' => [
+            'Hesse' => [
+                'Frankfurt',
+                'Wiesbaden',
+                'Darmstadt',
+            ],
+            'Berlin Region' => [
+                'Berlin',
+                'Potsdam',
+                'Oranienburg',
+            ],
+        ],
+
+        'Netherlands' => [
+            'North Holland' => [
+                'Amsterdam',
+                'Haarlem',
+                'Zaandam',
+            ],
+            'South Holland' => [
+                'Rotterdam',
+                'The Hague',
+                'Leiden',
+            ],
+        ],
+
+        'Spain' => [
+            'Community of Madrid' => [
+                'Madrid',
+                'Alcalá de Henares',
+                'Getafe',
+            ],
+            'Catalonia' => [
+                'Barcelona',
+                'Tarragona',
+                'Girona',
+            ],
+            'Valencian Community' => [
+                'Valencia',
+                'Alicante',
+                'Castellón',
+            ],
+        ],
+
+        'Italy' => [
+            'Lazio' => [
+                'Rome',
+                'Frosinone',
+                'Latina',
+            ],
+            'Lombardy' => [
+                'Milan',
+                'Bergamo',
+                'Brescia',
+            ],
+        ],
+
+        'Switzerland' => [
+            'Zurich Canton' => [
+                'Zurich',
+                'Winterthur',
+                'Uster',
+            ],
+            'Geneva Canton' => [
+                'Geneva',
+                'Carouge',
+                'Meyrin',
+            ],
+        ],
+
+        'Türkiye' => [
+            'Marmara Region' => [
+                'Istanbul',
+                'Bursa',
+                'Izmit',
+            ],
+            'Central Anatolia' => [
+                'Ankara',
+                'Konya',
+                'Kayseri',
+            ],
+        ],
+
         'USA' => [
-            'Los Angeles',
-            'San Francisco',
-            'Seattle',
-            'New York',
-            'Chicago',
-            // extra
-            'Las Vegas',
-            'Miami'
+            'West Coast' => [
+                'Los Angeles',
+                'San Francisco',
+                'Seattle',
+            ],
+            'Northeast' => [
+                'New York',
+                'Boston',
+                'Philadelphia',
+            ],
+            'Midwest' => [
+                'Chicago',
+                'Detroit',
+                'Minneapolis',
+            ],
+            'South' => [
+                'Miami',
+                'Houston',
+                'Atlanta',
+            ],
         ],
 
         'Canada' => [
-            'Vancouver',
-            'Toronto',
-            // extra
-            'Montreal',
-            'Calgary'
+            'British Columbia' => [
+                'Vancouver',
+                'Surrey',
+                'Burnaby',
+            ],
+            'Ontario' => [
+                'Toronto',
+                'Ottawa',
+                'Hamilton',
+            ],
+            'Quebec' => [
+                'Montreal',
+                'Quebec City',
+                'Laval',
+            ],
+            'Alberta' => [
+                'Calgary',
+                'Edmonton',
+                'Red Deer',
+            ],
         ],
 
         'Mexico' => [
-            'Mexico City',
-            // extra
-            'Guadalajara',
-            'Monterrey'
+            'Mexico City Region' => [
+                'Mexico City',
+                'Ecatepec',
+                'Coyoacán',
+            ],
+            'Jalisco' => [
+                'Guadalajara',
+                'Zapopan',
+                'Tlaquepaque',
+            ],
+            'Nuevo León' => [
+                'Monterrey',
+                'Guadalupe',
+                'San Nicolás',
+            ],
         ],
 
-        // ============================
-        // Africa
-        // ============================
         'South Africa' => [
-            'Johannesburg',
-            'Cape Town',
-            // extra
-            'Durban'
+            'Gauteng' => [
+                'Johannesburg',
+                'Pretoria',
+                'Benoni',
+            ],
+            'Western Cape' => [
+                'Cape Town',
+                'Stellenbosch',
+                'Paarl',
+            ],
+            'KwaZulu-Natal' => [
+                'Durban',
+                'Pietermaritzburg',
+                'Umhlanga',
+            ],
         ],
 
-        'Egypt' => ['Cairo', 'Giza'],
-        'Morocco' => ['Casablanca', 'Marrakesh'],
-        'Ethiopia' => ['Addis Ababa'],
-        'Kenya' => ['Nairobi', 'Mombasa'],
-        'Nigeria' => ['Lagos', 'Abuja'],
+        'Egypt' => [
+            'Cairo Governorate' => [
+                'Cairo',
+                'Nasr City',
+                'Heliopolis',
+            ],
+            'Giza Governorate' => [
+                'Giza',
+                '6th of October',
+                'Sheikh Zayed',
+            ],
+        ],
 
-        // ============================
-        // South America
-        // ============================
-        'Brazil' => ['São Paulo', 'Rio de Janeiro', 'Brasilia'],
-        'Argentina' => ['Buenos Aires', 'Cordoba'],
-        'Chile' => ['Santiago'],
-        'Peru' => ['Lima'],
-        'Colombia' => ['Bogotá', 'Medellín'],
+        'Morocco' => [
+            'Casablanca-Settat' => [
+                'Casablanca',
+                'Mohammedia',
+                'Settat',
+            ],
+            'Marrakesh-Safi' => [
+                'Marrakesh',
+                'Safi',
+                'Essaouira',
+            ],
+        ],
 
-        // ============================
-        // Australia / Oceania
-        // ============================
-        'Australia' => ['Sydney', 'Melbourne', 'Brisbane', 'Perth'],
-        'New Zealand' => ['Auckland', 'Wellington'],
+        'Ethiopia' => [
+            'Addis Ababa Region' => [
+                'Addis Ababa',
+                'Arada',
+                'Bole',
+            ],
+        ],
+
+        'Kenya' => [
+            'Nairobi County' => [
+                'Nairobi',
+                'Karen',
+                'Westlands',
+            ],
+            'Coast Province' => [
+                'Mombasa',
+                'Malindi',
+                'Lamu',
+            ],
+        ],
+
+        'Nigeria' => [
+            'Lagos State' => [
+                'Lagos',
+                'Ikeja',
+                'Ikorodu',
+            ],
+            'Federal Capital Territory' => [
+                'Abuja',
+                'Gwagwalada',
+                'Lugbe',
+            ],
+        ],
+
+        'Brazil' => [
+            'São Paulo State' => [
+                'São Paulo',
+                'Campinas',
+                'Santos',
+            ],
+            'Rio de Janeiro State' => [
+                'Rio de Janeiro',
+                'Niteroi',
+                'Petrópolis',
+            ],
+            'Federal District' => [
+                'Brasilia',
+                'Gama',
+                'Taguatinga',
+            ],
+        ],
+
+        'Argentina' => [
+            'Buenos Aires Province' => [
+                'Buenos Aires',
+                'La Plata',
+                'Mar del Plata',
+            ],
+            'Córdoba Province' => [
+                'Cordoba',
+                'Villa Carlos Paz',
+                'Río Cuarto',
+            ],
+        ],
+
+        'Chile' => [
+            'Santiago Metropolitan' => [
+                'Santiago',
+                'Puente Alto',
+                'Maipú',
+            ],
+        ],
+
+        'Peru' => [
+            'Lima Province' => [
+                'Lima',
+                'Callao',
+                'Miraflores',
+            ],
+        ],
+
+        'Colombia' => [
+            'Capital District' => [
+                'Bogotá',
+                'Engativá',
+                'Suba',
+            ],
+            'Antioquia' => [
+                'Medellín',
+                'Envigado',
+                'Bello',
+            ],
+        ],
+
+        'Australia' => [
+            'New South Wales' => [
+                'Sydney',
+                'Newcastle',
+                'Wollongong',
+            ],
+            'Victoria' => [
+                'Melbourne',
+                'Geelong',
+                'Ballarat',
+            ],
+            'Queensland' => [
+                'Brisbane',
+                'Gold Coast',
+                'Cairns',
+            ],
+            'Western Australia' => [
+                'Perth',
+                'Fremantle',
+                'Mandurah',
+            ],
+        ],
+
+        'New Zealand' => [
+            'Auckland Region' => [
+                'Auckland',
+                'Manukau',
+                'Waitakere',
+            ],
+            'Wellington Region' => [
+                'Wellington',
+                'Lower Hutt',
+                'Porirua',
+            ],
+        ],
     ];
 
     public function definition()
     {
+        // 1. Pick random country
         $country = $this->faker->randomElement(array_keys($this->countryCities));
-        $city = $this->faker->randomElement($this->countryCities[$country]);
-        $type = $this->faker->randomElement(['Apartment', 'House', 'Hotel', 'Resort', 'Villa', 'Room']);
+
+        // 2. Pick random division inside that country
+        $divisions = array_keys($this->countryCities[$country]);
+        $division = $this->faker->randomElement($divisions);
+
+        // 3. Pick real city names (no array_keys here)
+        $cities = $this->countryCities[$country][$division];
+        $city = $this->faker->randomElement($cities);
+
+        // 4. Build full address
+        $streetNumber = $this->faker->numberBetween(1, 999);
+        $streetName = $this->faker->streetName();
+        $address = "#{$streetNumber} {$streetName} St., {$city}, {$division}, {$country}";
+
+        $type = $this->faker->randomElement([
+            'Apartment',
+            'House',
+            'Hotel',
+            'Resort',
+            'Villa',
+            'Room'
+        ]);
 
         return [
             '_id' => (string) Str::uuid(),
 
-            'title' => "{$type} in {$city}, {$country}",
+            'title'       => "{$type} in {$city}, {$country}",
             'description' => $this->faker->paragraph(4),
 
-            'country' => $country,
-            'city' => $city,
+            'country'  => $country,
+            'division' => $division,
+            'city'     => $city,
+
             'type' => strtolower($type),
 
             'price_per_night' => $this->faker->randomFloat(2, 1500, 15000),
-            'max_guests' => $this->faker->numberBetween(1, 10),
-            'address' => $this->faker->streetAddress(),
+            'max_guests'      => $this->faker->numberBetween(1, 10),
+
+            'address' => $address,
         ];
     }
 }

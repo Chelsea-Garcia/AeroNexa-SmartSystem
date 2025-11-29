@@ -60,6 +60,7 @@ class BookingController extends Controller
             'time'                    => 'required|string',
             'passenger_name'          => 'required|string',
             'transaction_code'        => 'nullable|string', // <-- added
+            'payment_method' => 'nullable|string|in:AEROPAY,TRUTRAVEL',
         ]);
 
         $vehicle = Vehicle::find($data['vehicle_id']);
@@ -105,6 +106,16 @@ class BookingController extends Controller
         /** ---------------------------------------------
          * 1️⃣ TRUTRAVEL BOOKING
          * --------------------------------------------*/
+
+        // After creating booking, check payment method
+        if (($data['payment_method'] ?? 'AEROPAY') === 'TRUTRAVEL') {
+            return response()->json([
+                'message' => 'Booking created via TruTravel',
+                'data' => $booking
+            ]);
+        }
+
+        // Otherwise continue with normal AeroPay flow...
         if (!empty($data['transaction_code'])) {
 
             $booking->update([
@@ -183,24 +194,67 @@ class BookingController extends Controller
     public function updateStatus(Request $req, $id)
     {
         $data = $req->validate([
-            'payment_status' => 'required|in:pending,paid,failed,cancelled'
+            'payment_status' => 'sometimes|string|in:pending,paid,failed,cancelled',
+            'transaction_code' => 'sometimes|string', // For TruTravel to set transaction code
         ]);
 
         $booking = Booking::find($id);
-        if (!$booking) return response()->json(['error' => 'Booking not found'], 404);
 
-        $booking->payment_status = $data['payment_status'];
-        $booking->save();
+        if (!$booking) {
+            return response()->json(['error' => 'Booking not found'], 404);
+        }
 
-        $aero = $this->updateAeroPayStatus(
-            $booking->transaction_code,
-            $data['payment_status']
-        );
+        // -----------------------------------------
+        // 1️⃣ If TruTravel is sending transaction_code, save it
+        // -----------------------------------------
+        if (isset($data['transaction_code'])) {
+            $booking->transaction_code = $data['transaction_code'];
+            $booking->save();
 
-        return [
-            'message' => 'Payment status updated',
-            'booking' => $booking,
-            'aeropay' => $aero
-        ];
+            return response()->json([
+                'message' => 'Transaction code updated',
+                'booking' => $booking
+            ]);
+        }
+
+        // -----------------------------------------
+        // 2️⃣ Update payment status (if provided)
+        // -----------------------------------------
+        if (isset($data['payment_status'])) {
+            $booking->payment_status = $data['payment_status'];
+            $booking->save();
+
+            // -----------------------------------------
+            // 3️⃣ Sync with AeroPay (if transaction exists)
+            // -----------------------------------------
+            if ($booking->transaction_code) {
+                $aero = $this->updateAeroPayStatus(
+                    $booking->transaction_code,
+                    $data['payment_status']
+                );
+
+                if (!$aero['success']) {
+                    return response()->json([
+                        'warning' => 'Booking updated, but AeroPay update failed',
+                        'details' => $aero['message'],
+                        'booking' => $booking
+                    ], 202);
+                }
+
+                return response()->json([
+                    'message' => 'Payment status updated successfully',
+                    'aeropay' => $aero['data'] ?? null,
+                    'booking' => $booking
+                ]);
+            }
+
+            // If no transaction_code yet, just return updated booking
+            return response()->json([
+                'message' => 'Payment status updated',
+                'booking' => $booking
+            ]);
+        }
+
+        return response()->json(['error' => 'No valid update data provided'], 400);
     }
 }

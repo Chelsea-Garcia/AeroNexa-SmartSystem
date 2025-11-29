@@ -31,6 +31,7 @@ class BookingController extends Controller
             'check_in'    => 'required|date',
             'check_out'   => 'required|date|after:check_in',
             'transaction_code' => 'nullable|string', // <-- Added for TruTravel
+            'payment_method' => 'nullable|string|in:AEROPAY,TRUTRAVEL',
         ]);
 
         $property = Property::find($data['property_id']);
@@ -56,6 +57,16 @@ class BookingController extends Controller
         /** ---------------------------------------------
          * 1️⃣ IF TRUTRAVEL SENT A TRANSACTION CODE
          * --------------------------------------------*/
+        // After creating booking, check payment method
+        if (($data['payment_method'] ?? 'AEROPAY') === 'TRUTRAVEL') {
+            return response()->json([
+                'message' => 'Booking created via TruTravel',
+                'data' => $booking
+            ]);
+        }
+
+        // Otherwise continue with normal AeroPay flow...
+
         if (!empty($data['transaction_code'])) {
 
             $booking->update([
@@ -110,7 +121,8 @@ class BookingController extends Controller
     public function updateStatus(Request $req, $id)
     {
         $data = $req->validate([
-            'payment_status' => 'required|string|in:pending,paid,failed,cancelled'
+            'payment_status' => 'sometimes|string|in:pending,paid,failed,cancelled',
+            'transaction_code' => 'sometimes|string', // For TruTravel to set transaction code
         ]);
 
         $booking = Booking::find($id);
@@ -119,41 +131,57 @@ class BookingController extends Controller
             return response()->json(['error' => 'Booking not found'], 404);
         }
 
-        if (!$booking->transaction_code) {
+        // -----------------------------------------
+        // 1️⃣ If TruTravel is sending transaction_code, save it
+        // -----------------------------------------
+        if (isset($data['transaction_code'])) {
+            $booking->transaction_code = $data['transaction_code'];
+            $booking->save();
+
             return response()->json([
-                'error' => 'No AeroPay transaction linked to this booking'
-            ], 400);
-        }
-
-        // -----------------------------------------
-        // 1️⃣ Update Booking Status (Local)
-        // -----------------------------------------
-        $booking->payment_status = $data['payment_status'];
-        $booking->save();
-
-        // -----------------------------------------
-        // 2️⃣ Sync Status with AeroPay
-        // -----------------------------------------
-        $aero = $this->updateAeroPayStatus(
-            $booking->transaction_code,
-            $data['payment_status']
-        );
-
-        if (!$aero['success']) {
-            return response()->json([
-                'warning' => 'Booking updated, but AeroPay update failed',
-                'details' => $aero['message'],
+                'message' => 'Transaction code updated',
                 'booking' => $booking
-            ], 202);
+            ]);
         }
 
         // -----------------------------------------
-        // 3️⃣ Return FINAL Response
+        // 2️⃣ Update payment status (if provided)
         // -----------------------------------------
-        return response()->json([
-            'message' => 'Payment status updated successfully',
-            'aeropay' => $aero['data'] ?? null,
-            'booking' => $booking
-        ]);
+        if (isset($data['payment_status'])) {
+            $booking->payment_status = $data['payment_status'];
+            $booking->save();
+
+            // -----------------------------------------
+            // 3️⃣ Sync with AeroPay (if transaction exists)
+            // -----------------------------------------
+            if ($booking->transaction_code) {
+                $aero = $this->updateAeroPayStatus(
+                    $booking->transaction_code,
+                    $data['payment_status']
+                );
+
+                if (!$aero['success']) {
+                    return response()->json([
+                        'warning' => 'Booking updated, but AeroPay update failed',
+                        'details' => $aero['message'],
+                        'booking' => $booking
+                    ], 202);
+                }
+
+                return response()->json([
+                    'message' => 'Payment status updated successfully',
+                    'aeropay' => $aero['data'] ?? null,
+                    'booking' => $booking
+                ]);
+            }
+
+            // If no transaction_code yet, just return updated booking
+            return response()->json([
+                'message' => 'Payment status updated',
+                'booking' => $booking
+            ]);
+        }
+
+        return response()->json(['error' => 'No valid update data provided'], 400);
     }
 }

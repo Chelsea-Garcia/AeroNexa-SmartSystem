@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Route;
 */
 use App\Http\Controllers\api\v1\psa\FlightController;
 use App\Http\Controllers\api\v1\psa\PassengerController;
+use App\Http\Controllers\api\v1\psa\AirportController;
 use App\Http\Controllers\api\v1\psa\BookingController as PsaBookingController;
 
 Route::prefix('psa')->group(function () {
@@ -22,6 +23,10 @@ Route::prefix('psa')->group(function () {
     Route::post('/passengers', [PassengerController::class, 'store']);
     Route::get('/passengers/user/{user_id}', [PassengerController::class, 'showByUser']);
     Route::put('/passengers/{id}', [PassengerController::class, 'update']);
+
+    // Airport
+    Route::get('/airports', [AirportController::class, 'index']);
+    Route::get('/airports/{id}', [AirportController::class, 'show']);
 
     // Bookings
     Route::post('/bookings', [PsaBookingController::class, 'store']);
@@ -99,7 +104,7 @@ Route::prefix('aureliya')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| SKYROUTE — LAND TRANSPORTATION (NEW LOGIC)
+| SKYROUTE
 |--------------------------------------------------------------------------
 */
 
@@ -124,4 +129,40 @@ Route::prefix('skyroute')->group(function () {
 
     // Payment status
     Route::put('/booking/{id}/status', [SkyrouteBookingController::class, 'updateStatus']);
+});
+
+/*
+|--------------------------------------------------------------------------
+| TruTravel
+|--------------------------------------------------------------------------
+*/
+
+use App\Http\Controllers\api\v1\trutravel\PackageController;
+use App\Http\Controllers\api\v1\trutravel\BookingController as trutravelBookingController;
+
+Route::prefix('trutravel')->group(function () {
+    // Packages
+    Route::get('/packages', [PackageController::class, 'index']);
+    Route::get('/packages/{id}', [PackageController::class, 'show']);
+
+    // Bookings
+    Route::post('/bookings', [trutravelBookingController::class, 'store']);
+    Route::get('/bookings/user/{user_id}', [trutravelBookingController::class, 'userBookings']);
+    Route::get('/booking/{id}', [trutravelBookingController::class, 'show']);
+});
+
+Route::prefix('trutravel')->group(function () {
+    // Packages
+    Route::get('/packages', [PackageController::class, 'index']);
+    Route::get('/packages/{id}', [PackageController::class, 'show']);
+
+    // Bookings
+    Route::post('/bookings', [trutravelBookingController::class, 'store']);
+    Route::get('/bookings/user/{user_id}', [trutravelBookingController::class, 'userBookings']);
+    Route::get('/booking/{id}', [trutravelBookingController::class, 'show']);
+
+    // NEW ROUTES - Add these
+    Route::post('/booking/{id}/cancel', [trutravelBookingController::class, 'cancel']);
+    Route::put('/booking/{id}/status', [trutravelBookingController::class, 'updateStatus']);
+    Route::post('/webhook', [trutravelBookingController::class, 'webhook']);
 });

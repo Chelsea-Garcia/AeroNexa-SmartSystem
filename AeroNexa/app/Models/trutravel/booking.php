@@ -1,45 +1,52 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\trutravel;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Booking extends Model
 {
-    // Table name is _bookings by Laravel convention.
     protected $connection = 'trutravel';
     protected $table = 'bookings';
+    protected $primaryKey = '_id';
+    public $incrementing = false;
+    protected $keyType = 'string';
 
     protected $fillable = [
+        '_id',
         'user_id',
         'package_id',
-        'psa_booking_id',
-        'skyroute_booking_id',
-        'aureliya_booking_id',
+        'travel_date',
+        'return_date',
         'transaction_code',
         'amount',
         'currency',
         'payment_status',
         'status',
-        'metadata', // JSON field for breakdown or misc data
+        'payment_breakdown',
+        'metadata',
     ];
 
     protected $casts = [
-        'amount'       => 'float',
-        'metadata'     => 'array',
-        'payment_status' => 'string',
-        'status'       => 'string',
+        'travel_date' => 'date',
+        'return_date' => 'date',
+        'amount' => 'decimal:2',
+        'payment_breakdown' => 'array',
+        'metadata' => 'array',
     ];
 
-    // Relationships
-    public function package()
+    protected static function booted()
     {
-        return $this->belongsTo(Package::class, 'package_id');
+        static::creating(function ($model) {
+            if (empty($model->{$model->getKeyName()})) {
+                $model->{$model->getKeyName()} = (string) Str::uuid();
+            }
+        });
     }
 
-    // convenience accessor for breakdown (if you store it in metadata['breakdown'])
-    public function getBreakdownAttribute()
+    public function package()
     {
-        return $this->metadata['breakdown'] ?? null;
+        return $this->belongsTo(Package::class, 'package_id', '_id');
     }
 }

@@ -10,10 +10,16 @@ return new class extends Migration
     {
         Schema::connection('aureliya')->create('properties', function (Blueprint $table) {
             $table->uuid('_id')->primary();
+
             $table->string('title');
             $table->text('description');
+
             $table->string('country');
+            $table->string('division');   // ← Added (region / prefecture / state)
             $table->string('city');
+
+            $table->string('address');    // ← Full address
+
             $table->enum('type', [
                 'apartment',
                 'house',
@@ -23,10 +29,12 @@ return new class extends Migration
                 'villa',
                 'guesthouse'
             ]);
+
             $table->double('price_per_night');
             $table->integer('max_guests');
-            $table->string('address');
+
             $table->json('photos')->nullable();
+
             $table->timestamps();
         });
     }

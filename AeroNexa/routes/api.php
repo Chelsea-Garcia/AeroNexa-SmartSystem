@@ -166,3 +166,17 @@ Route::prefix('trutravel')->group(function () {
     Route::put('/booking/{id}/status', [trutravelBookingController::class, 'updateStatus']);
     Route::post('/webhook', [trutravelBookingController::class, 'webhook']);
 });
+
+use App\Http\Controllers\api\v1\aeronexa\UserController;
+
+Route::prefix('aeronexa')->group(function () {
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('users/{id}', [UserController::class, 'show']);
+    Route::post('users', [UserController::class, 'store']);
+    Route::put('users/{id}', [UserController::class, 'update']);
+    Route::delete('users/{id}', [UserController::class, 'destroy']);
+
+
+    // simple login (no tokens)
+    Route::post('users/login', [UserController::class, 'login']);
+});

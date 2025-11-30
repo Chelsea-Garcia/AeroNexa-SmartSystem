@@ -1,6 +1,6 @@
 <?php
 
-namespace Database\Seeders;
+namespace Database\Seeders\aeropay;
 
 use Illuminate\Database\Seeder;
 use App\Models\aeropay\Transaction;

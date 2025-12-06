@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="aureliya.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>AERONEXA – AURELI-YA!</title>
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="nav-logo">
+            <img src="/frontend/ASSETS/aero.logo.png" alt="Logo" class="nav-logo-img" />
+            <span class="nav-title">AERONEXA</span>
+        </div>
+        <ul class="nav-menu">
+            <li><a href="/frontend/homepage.html" class="nav-link">HOME</a></li>
+            <li><a href="/frontend/PSA/psa.html" class="nav-link">PHILIPPINE SKY AIRWAY</a></li>
+            <li><a href="aureliya.html" class="nav-link active">AURELI-YA!</a></li>
+            <li><a href="/frontend/TRUTRAVEL/trutravel.html" class="nav-link">TRUTRAVEL</a></li>
+            <li><a href="/frontend/SKYROUTE/skyroute.html" class="nav-link">SKYROUTE</a></li>
+        </ul>
+        <div class="nav-profile">
+            <a href="/frontend/account.html">
+                <img src="/frontend/ASSETS/profile.png" alt="User Profile" class="profile-icon">
+            </a>
+        </div>
+    </nav>
+    
+<div class="page-wrap">
+
+    <div class="hotel-navbar">
+        <div class="filter-bar" role="region" aria-label="flight search filters">
+        <div class="filter-fields-container">
+            <div class="filter-item">
+                <label for="where">Where</label>
+                <div class="select-wrapper">
+                    <select id="where">
+                        <option value="">Any</option>
+                        <option>Manila</option>
+                        <option>Clark</option>
+                        <option>Cebu</option>
+                        <option>Davao</option>
+                        <option>Iloilo</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-item">
+                <label for="when">When</label>
+                <div class="select-wrapper date-wrapper">
+                    <input id="when" type="date"/>
+                </div>
+            </div>
+
+            <div class="filter-item">
+                <label for="guests">Guests</label>
+                <div class="select-wrapper">
+                    <select id="guests">
+                        <option>Adult</option>
+                        <option>Child</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="filter-action">
+            <button id="search-btn" class="search-btn">Search</button>
+        </div>
+    </div>
+</div>
+
+<div class="spacer-30"></div>
+
+    <div class="content-wrapper" id="contentWrapper">
+        <div class="airbnb-grid" id="airbnbGrid">
+            <div class="airbnb-card" data-index="0">
+                <img src="assets/airbnb1.jpg" />
+                <p>Cozy Beachfront Home</p>
+            </div>
+            <div class="airbnb-card" data-index="1">
+                <img src="assets/airbnb2.jpg" />
+                <p>Mountain View Cabin</p>
+            </div>
+            <div class="airbnb-card" data-index="2">
+                <img src="assets/airbnb3.jpg" />
+                <p>Luxury City Condo</p>
+            </div>
+            <div class="airbnb-card" data-index="3">
+                <img src="assets/airbnb4.jpg" />
+                <p>Private Island Retreat</p>
+            </div>
+            <div class="airbnb-card" data-index="4">
+                <img src="assets/airbnb5.jpg" />
+                <p>Modern Glass Villa</p>
+            </div>
+            <div class="airbnb-card" data-index="5">
+                <img src="assets/airbnb6.jpg" />
+                <p>Forest Treehouse</p>
+            </div>
+        </div>
+
+        <div class="details-panel" id="detailsPanel">
+            <h2>Select an Airbnb</h2>
+            <p>Click one of the listings to view more details.</p>
+        </div>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-bottom">
+        <p>&copy; 2025 AERONEXA. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    const details = [
+        { 
+            type: "BEACH HOUSE",
+            title: "Cozy Beachfront Home", 
+            location: "Batangas",
+            address: "123 Sandy Shore Dr, Nasugbu",
+            price: "₱4,500 / night",
+            desc: "A relaxing beachfront stay with direct access to the ocean.", 
+            imgSrc: "assets/airbnb1.jpg" 
+        },
+        { 
+            type: "CABIN",
+            title: "Mountain View Cabin", 
+            location: "Tagaytay",
+            address: "45 Pine Ridge Rd, Tagaytay City",
+            price: "₱3,200 / night",
+            desc: "A peaceful cabin with cold breeze, perfect for a weekend getaway.", 
+            imgSrc: "assets/airbnb2.jpg" 
+        },
+        { 
+            type: "CONDO",
+            title: "Luxury City Condo", 
+            location: "Makati",
+            address: "Unit 204, Skyline Tower, Salcedo",
+            price: "₱5,000 / night",
+            desc: "In the heart of the city. Walking distance to malls.", 
+            imgSrc: "assets/airbnb3.jpg" 
+        },
+        { 
+            type: "RESORT",
+            title: "Private Island Retreat", 
+            location: "Palawan",
+            address: "Island No. 4, El Nido",
+            price: "₱15,000 / night",
+            desc: "Exclusive island experience with private boat transfer.", 
+            imgSrc: "assets/airbnb4.jpg" 
+        },
+        { 
+            type: "VILLA",
+            title: "Modern Glass Villa", 
+            location: "Antipolo",
+            address: "99 Cloud View, Antipolo Rizal",
+            price: "₱8,500 / night",
+            desc: "Panoramic glass walls + pool overlooking the city lights.", 
+            imgSrc: "assets/airbnb5.jpg" 
+        },
+        { 
+            type: "TREEHOUSE",
+            title: "Forest Treehouse", 
+            location: "Baguio",
+            address: "Camp John Hay Area",
+            price: "₱2,800 / night",
+            desc: "Stay above the forest canopy. A unique rustic experience.", 
+            imgSrc: "assets/airbnb6.jpg" 
+        }
+    ];
+
+    function showDetails(index) {
+        const panel = document.getElementById("detailsPanel");
+        const selected = details[index]; 
+
+        // I updated the HTML structure slightly to match your CSS classes perfectly
+        panel.innerHTML = `
+            <img src="${selected.imgSrc}" alt="${selected.title}" class="detail-image" />
+            
+            <div class="detail-content">
+                <span class="place-type">${selected.type}</span>
+
+                <div class="title-price-row">
+                    <h2>${selected.title}</h2>
+                    <span class="price-tag">${selected.price}</span>
+                </div>
+
+                <div class="location-info">
+                    <p class="loc-main"><strong>Location:</strong> ${selected.location}</p>
+                    <p class="loc-address">${selected.address}</p>
+                </div>
+
+                <p class="description-text">${selected.desc}</p>
+                
+                <button class="book-btn" onclick="window.location.href='/payment'">Proceed to Payment</button>
+            </div>
+        `;
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const cards = document.querySelectorAll('.airbnb-card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-index'));
+                showDetails(index);
+            });
+        });
+    });
+</script>
+</body>
+</html>

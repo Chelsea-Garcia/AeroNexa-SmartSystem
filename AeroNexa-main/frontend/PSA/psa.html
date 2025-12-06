@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="psa.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>AERONEXA - PSA</title>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="nav-logo">
+        <img src="/frontend/ASSETS/aero.logo.png" alt="Logo" class="nav-logo-img" />
+        <span class="nav-title">AERONEXA</span>
+    </div>
+    <ul class="nav-menu">
+        <li><a href="/frontend/homepage.html" class="nav-link" onclick="setActive(this)">HOME</a></li>
+        <li><a href="psa.html" class="nav-link active" onclick="setActive(this)">PHILIPPINE SKY AIRWAY</a></li>
+        <li><a href="/frontend/AURELI-YAH!/aureliya.html" class="nav-link" onclick="setActive(this)">AURELI-YA!</a></li>
+        <li><a href="/frontend/TRUTRAVEL/trutravel.html" class="nav-link" onclick="setActive(this)">TRUTRAVEL</a></li>
+        <li><a href="/frontend/SKYROUTE/skyroute.html" class="nav-link" onclick="setActive(this)">SKYROUTE</a></li>
+    </ul>
+    <div class="nav-profile">
+        <a href="/frontend/account.html">
+            <img src="/frontend/ASSETS/profile.png" alt="User Profile" class="profile-icon">
+        </a>
+    </div>
+</nav>
+
+<!-- MAIN CONTENT: Filter row + booking layout -->
+<div class="page-wrap">
+
+    <div class="filter-bar" role="region" aria-label="flight search filters">
+        <div class="filter-item">
+            <label for="trip-type">Type</label>
+            <div class="select-wrapper">
+                <select id="trip-type">
+                    <option value="oneway">One way</option>
+                    <option value="round">Round trip</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <label for="from">From</label>
+            <div class="select-wrapper">
+                <select id="from">
+                    <option value="">Any</option>
+                    <option>Manila</option>
+                    <option>Clark</option>
+                    <option>Cebu</option>
+                    <option>Davao</option>
+                    <option>Iloilo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <label for="to">To</label>
+            <div class="select-wrapper">
+                <select id="to">
+                    <option value="">Any</option>
+                    <option>Manila</option>
+                    <option>Clark</option>
+                    <option>Cebu</option>
+                    <option>Davao</option>
+                    <option>Iloilo</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <label for="cabin">Class</label>
+            <div class="select-wrapper">
+                <select id="cabin">
+                    <option>Economy</option>
+                    <option>Premium Economy</option>
+                    <option>Business</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="filter-item">
+            <label for="departure">Departure</label>
+            <input id="departure" type="date" />
+        </div>
+
+        <div class="filter-action">
+            <button id="search-btn" class="search-btn">Search</button>
+        </div>
+    </div>
+
+    <div class="booking-container" id="booking-container">
+
+        <div class="packages-panel">
+            <h2 class="panel-title">TRAVEL PACKAGES</h2>
+            <div class="package-card">
+                <h4>Palawan Getaway</h4>
+                <p class="package-meta">5 days, 4 nights. Incl. flight & hotel.</p>
+                <div class="package-price">₱18,000</div>
+            </div>
+            <div class="package-card">
+                <h4>Bohol Adventure</h4>
+                <p class="package-meta">3 days, 2 nights. Incl. ferry & tour.</p>
+                <div class="package-price">₱12,500</div>
+            </div>
+        </div>
+
+        <div class="left-panel">
+            <h2 class="panel-title">FLIGHTS</h2>
+
+            <div class="flight-card" data-route="Manila → Cebu">
+                <div class="flight-info">
+                    <h3>Manila → Cebu</h3>
+                    <p class="time">08:00 — 09:30</p>
+                    <p class="meta">Economy • 1h 30m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱1,450</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+
+            <div class="flight-card" data-route="Manila → Davao">
+                <div class="flight-info">
+                    <h3>Manila → Davao</h3>
+                    <p class="time">10:00 — 12:00</p>
+                    <p class="meta">Economy • 2h 00m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱2,100</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+
+            <div class="flight-card" data-route="Clark → Iloilo">
+                <div class="flight-info">
+                    <h3>Clark → Iloilo</h3>
+                    <p class="time">14:00 — 15:20</p>
+                    <p class="meta">Economy • 1h 20m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱1,200</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+
+            <div class="flight-card" data-route="Cebu → Manila">
+                <div class="flight-info">
+                    <h3>Cebu → Manila</h3>
+                    <p class="time">16:30 — 18:00</p>
+                    <p class="meta">Economy • 1h 30m</p>
+                </div>
+                <div class="flight-actions">
+                    <div class="fare">₱1,450</div>
+                    <button class="book-btn">Book</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel hidden" id="right-panel">
+            <button class="close-btn" id="close-details-panel" aria-label="Close Details Panel">&times;</button>
+            
+            <div class="tab-header">
+                <div id="tab-details" class="tab-active" onclick="switchTab('details')">DETAILS</div>
+                <div id="tab-fares" onclick="switchTab('fares')">FARES</div>
+            </div>
+
+            <div id="details-content" class="tab-content">
+                <h3 class="muted">Select a flight to view details</h3>
+            </div>
+
+            <div id="fares-content" class="tab-content hidden">
+                <h4 class="muted">No fare selected</h4>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="booking-modal" class="modal-overlay hidden">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeBookingModal()">&times;</span>
+        
+        <div class="modal-header">
+            <h2>Flight Itinerary</h2>
+            <p>Review your flight details before payment.</p>
+        </div>
+
+        <div class="modal-body">
+            <div id="modal-flight-details"></div>
+            
+            <div class="passenger-form">
+                <h4>Passenger Details</h4>
+                <div class="form-row">
+                    <input type="text" placeholder="First Name" class="modal-input">
+                    <input type="text" placeholder="Last Name" class="modal-input">
+                </div>
+                <div class="form-row">
+                    <input type="email" placeholder="Email Address" class="modal-input" style="width: 100%">
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <div class="total-price" id="modal-total-price">₱0</div>
+            <button class="confirm-btn">Confirm & Pay</button>
+        </div>
+    </div>
+</div>
+
+<div id="success-modal" class="modal-overlay hidden">
+    <div class="modal-content success-content">
+        <span class="close-modal" onclick="closeSuccessModal()">&times;</span>
+        
+        <div class="success-icon">
+            ✓
+        </div>
+        
+        <h2>Booking Confirmed!</h2>
+        <p>Your payment has been processed successfully.</p>
+        
+        <div class="confirmation-box">
+            <p class="ref-label">Booking Reference</p>
+            <h3 id="booking-ref-number">PSA-88293</h3>
+        </div>
+
+        <p class="email-note">An electronic ticket has been sent to your email.</p>
+        
+        <button class="search-btn" onclick="closeSuccessModal()" style="margin:0;">Back to Home</button>
+    </div>
+</div>
+
+<footer class="main-footer">
+    <div class="footer-bottom">
+        <p>&copy; 2025 AERONEXA. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+    // ==========================================
+    // --- 1. UTILITY FUNCTIONS ---
+    // ==========================================
+
+    function setActive(element) {
+        document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+        element.classList.add('active');
+    }
+
+    function closeDetailsPanel() {
+        const rightPanel = document.getElementById('right-panel');
+        const bookingContainer = document.getElementById('booking-container');
+        if (rightPanel && bookingContainer) {
+            rightPanel.classList.add('hidden');
+            bookingContainer.classList.remove('three-column');
+        }
+    }
+
+    function switchTab(tab) {
+        document.getElementById("tab-details").classList.remove("tab-active");
+        document.getElementById("tab-fares").classList.remove("tab-active");
+        document.getElementById("details-content").classList.add("hidden");
+        document.getElementById("fares-content").classList.add("hidden");
+
+        if (tab === "details") {
+            document.getElementById("tab-details").classList.add("tab-active");
+            document.getElementById("details-content").classList.remove("hidden");
+        } else {
+            document.getElementById("tab-fares").classList.add("tab-active");
+            document.getElementById("fares-content").classList.remove("hidden");
+        }
+    }
+
+    // ==========================================
+    // --- 2. CORE LOGIC ---
+    // ==========================================
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const path = location.pathname.split('/').pop() || 'psa.html';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            if (link.getAttribute('href') === path) link.classList.add('active');
+            else link.classList.remove('active');
+        });
+
+        const closeBtn = document.getElementById('close-details-panel');
+        if(closeBtn) closeBtn.addEventListener('click', closeDetailsPanel);
+    });
+
+    // --- Flight Card Click Logic ---
+    document.querySelectorAll('.flight-card').forEach(card => {
+        card.addEventListener('click', () => {
+            const rightPanel = document.getElementById('right-panel');
+            const bookingContainer = document.getElementById('booking-container');
+            
+            if (rightPanel && bookingContainer) {
+                rightPanel.classList.remove('hidden');
+                bookingContainer.classList.add('three-column');
+            }
+            
+            const route = card.getAttribute('data-route') || card.querySelector('h3').innerText;
+            const time = card.querySelector('.time').innerText;
+            const fare = card.querySelector('.fare').innerText;
+            const meta = card.querySelector('.meta').innerText;
+
+            document.getElementById('details-content').innerHTML = `
+                <h2>${route}</h2>
+                <p><strong>Time:</strong> ${time}</p>
+                <p><strong>Info:</strong> ${meta}</p>
+                <p><strong>Lowest fare:</strong> ${fare}</p>
+                <button id="proceed-btn" class="book-btn" style="margin-top:12px;">Proceed to Book</button>
+            `;
+
+            switchTab('details');
+
+            // Opens the First Modal
+            const proceedBtn = document.getElementById('proceed-btn');
+            if(proceedBtn) {
+                proceedBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    openBookingModal({ route, time, fare, meta });
+                });
+            }
+        });
+    });
+
+    // --- Search Logic ---
+    document.getElementById('search-btn').addEventListener('click', () => {
+        const from = document.getElementById('from').value.trim();
+        const to = document.getElementById('to').value.trim();
+        const rightPanel = document.getElementById('right-panel');
+        const bookingContainer = document.getElementById('booking-container');
+        
+        const cards = Array.from(document.querySelectorAll('.flight-card'));
+        let anyVisible = false;
+
+        cards.forEach(card => {
+            const route = card.getAttribute('data-route') || card.innerText;
+            const matchesFrom = !from || route.includes(from);
+            const matchesTo = !to || route.includes(to);
+            if (matchesFrom && matchesTo) {
+                card.style.display = 'flex';
+                anyVisible = true;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+
+        if (rightPanel && bookingContainer) {
+            if (!anyVisible) {
+                closeDetailsPanel();
+                document.getElementById('details-content').innerHTML = `<h3 class="muted">No flights found for your search</h3>`;
+            } else {
+                closeDetailsPanel();
+                document.getElementById('details-content').innerHTML = `<h3 class="muted">Showing search results. Select a flight for details.</h3>`;
+            }
+            switchTab('details');
+            rightPanel.classList.remove('hidden');
+        }
+    });
+
+    // ==========================================
+    // --- 3. MODAL LOGIC (Booking & Success) ---
+    // ==========================================
+
+    function openBookingModal(data) {
+        const modal = document.getElementById('booking-modal');
+        const detailsContainer = document.getElementById('modal-flight-details');
+        const priceDisplay = document.getElementById('modal-total-price');
+
+        const flightNum = "PR-" + Math.floor(Math.random() * 900 + 100);
+        let origin = "City A", dest = "City B";
+        if(data.route.includes('→')) { [origin, dest] = data.route.split('→').map(s => s.trim()); } 
+        else { origin = "Origin"; dest = data.route; }
+        
+        let depTime = "00:00", arrTime = "00:00";
+        if(data.time.includes('—')) { [depTime, arrTime] = data.time.split('—').map(s => s.trim()); }
+
+        // Inject HTML
+        // NOTE: We added an ID 'confirm-pay-btn' to the button below
+        detailsContainer.innerHTML = `
+            <div class="flight-path">${origin} &nbsp; <span style="font-size:14px; color:#888;">✈</span> &nbsp; ${dest}</div>
+            <div class="ticket-row">
+                <div><div class="ticket-label">Flight No.</div><div class="ticket-value">${flightNum}</div></div>
+                <div><div class="ticket-label">Aircraft</div><div class="ticket-value">Airbus A320</div></div>
+                <div><div class="ticket-label">Class</div><div class="ticket-value">Economy</div></div>
+            </div>
+            <div class="ticket-row">
+                <div><div class="ticket-label">Departure</div><div class="ticket-value">${depTime}</div><div style="font-size:12px; color:#666;">Ninoy Aquino Intl (T3)</div></div>
+                <div style="text-align:right;"><div class="ticket-label">Arrival</div><div class="ticket-value">${arrTime}</div><div style="font-size:12px; color:#666;">${dest} Intl Airport</div></div>
+            </div>
+            <div style="background:#f0f7fc; padding:10px; border-radius:6px; font-size:13px; color:#037FBE;">
+                <strong>✓</strong> 7kg Hand Carry Included <br><strong>✓</strong> No check-in baggage selected
+            </div>
+        `;
+
+        priceDisplay.innerText = data.fare;
+
+        // Add the button dynamically so we can attach the specific listener
+        const footerDiv = modal.querySelector('.modal-footer');
+        // Clear old buttons (prevent duplicates)
+        const oldBtn = document.getElementById('confirm-pay-btn');
+        if(oldBtn) oldBtn.remove();
+        
+        // Create new button with ID
+        const confirmBtn = document.createElement('button');
+        confirmBtn.id = "confirm-pay-btn";
+        confirmBtn.className = "confirm-btn";
+        confirmBtn.innerText = "Confirm & Pay";
+        
+        // Append to footer (before the price, or just replace content as needed)
+        // To keep it simple based on your HTML, we replace the button inside footer
+        const existingBtn = footerDiv.querySelector('.confirm-btn');
+        if(existingBtn) existingBtn.replaceWith(confirmBtn);
+        else footerDiv.appendChild(confirmBtn);
+
+        // ATTACH LISTENER FOR SUCCESS MODAL
+        confirmBtn.onclick = function() {
+            openSuccessModal();
+        };
+        
+        if(modal) modal.classList.remove('hidden');
+    }
+
+    function closeBookingModal() {
+        const modal = document.getElementById('booking-modal');
+        if(modal) modal.classList.add('hidden');
+    }
+
+    // --- SUCCESS MODAL FUNCTIONS ---
+
+    function openSuccessModal() {
+        // 1. Close the booking form
+        closeBookingModal();
+
+        // 2. Generate a random reference number
+        const randomRef = "PSA-" + Math.floor(Math.random() * 100000);
+        document.getElementById('booking-ref-number').innerText = randomRef;
+
+        // 3. Open the success modal
+        const successModal = document.getElementById('success-modal');
+        successModal.classList.remove('hidden');
+    }
+
+    function closeSuccessModal() {
+        document.getElementById('success-modal').classList.add('hidden');
+    }
+
+    // Close Modals on Outside Click
+    window.onclick = function(event) {
+        const bookingModal = document.getElementById('booking-modal');
+        const successModal = document.getElementById('success-modal');
+        
+        if (event.target == bookingModal) {
+            closeBookingModal();
+        }
+        if (event.target == successModal) {
+            closeSuccessModal();
+        }
+    }
+</script>
+</body>
+</html>

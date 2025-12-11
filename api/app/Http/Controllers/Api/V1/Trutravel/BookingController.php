@@ -21,13 +21,18 @@ class BookingController extends Controller
      */
     public function store(Request $req)
     {
+        // 1. Validate Input (Added passenger_amount)
         $data = $req->validate([
             'user_id' => 'required|string',
             'package_id' => 'required|string',
             'travel_date' => 'required|date|after_or_equal:today',
             'passenger_name' => 'required|string',
-            'passenger_id' => 'required|string',
+            'passenger_id' => 'required|string', // PSA requires this
+            'passenger_amount' => 'nullable|integer|min:1', // SkyRoute requires this
         ]);
+
+        // Default to 1 passenger if not specified
+        $passengerAmount = $data['passenger_amount'] ?? 1;
 
         // Resolve package
         $package = Package::find($data['package_id']);
@@ -40,7 +45,7 @@ class BookingController extends Controller
         $travelDate = Carbon::parse($data['travel_date']);
         $returnDate = $travelDate->copy()->addDays($nights);
 
-        // 1. Create local TruTravel booking (Pending)
+        // 2. Create local TruTravel booking (Pending)
         $ttBooking = Booking::create([
             'user_id' => $data['user_id'],
             'package_id' => $data['package_id'],
@@ -54,14 +59,14 @@ class BookingController extends Controller
 
         $partnerBookings = [];
 
-        // Base URLs
+        // Base URLs (Adjust ports if necessary for your environment)
         $psaBase  = 'http://localhost:8000/api/psa';
         $aureBase = 'http://localhost:8002/api/aureliya';
         $srBase   = 'http://localhost:8003/api/skyroute';
 
         try {
             // -------------------------
-            // 2. Reserve Partner Bookings
+            // 3. Reserve Partner Bookings
             // -------------------------
 
             // A) PSA — Outbound
@@ -71,7 +76,7 @@ class BookingController extends Controller
                     'passenger_id' => $data['passenger_id'],
                     'flight_id' => $package->airline_flight_id,
                     'flight_date' => $travelDate->format('Y-m-d'),
-                    'payment_origin' => 'TRUTRAVEL',
+                    'payment_method' => 'TRUTRAVEL', // Fixed key
                     'skip_aeropay' => true,
                 ]);
                 $psaResp->throw();
@@ -88,7 +93,7 @@ class BookingController extends Controller
                         'passenger_id' => $data['passenger_id'],
                         'flight_id' => $package->airline_return_flight_id,
                         'flight_date' => $returnDate->format('Y-m-d'),
-                        'payment_origin' => 'TRUTRAVEL',
+                        'payment_method' => 'TRUTRAVEL', // Fixed key
                         'skip_aeropay' => true,
                     ]);
                     $psaRetResp->throw();
@@ -105,7 +110,7 @@ class BookingController extends Controller
                     'property_id' => $package->aureliya_property_id,
                     'check_in' => $travelDate->format('Y-m-d'),
                     'check_out' => $returnDate->format('Y-m-d'),
-                    'payment_origin' => 'TRUTRAVEL',
+                    'payment_method' => 'TRUTRAVEL', // Fixed key
                     'skip_aeropay' => true,
                 ]);
                 $aureResp->throw();
@@ -126,7 +131,8 @@ class BookingController extends Controller
                         'date' => $travelDate->format('Y-m-d'),
                         'time' => '14:00',
                         'passenger_name' => $data['passenger_name'],
-                        'payment_origin' => 'TRUTRAVEL',
+                        'passenger_amount' => $passengerAmount, // Passed to SkyRoute
+                        'payment_method' => 'TRUTRAVEL', // Fixed key
                         'skip_aeropay' => true,
                     ]);
                     $srOutResp->throw();
@@ -145,7 +151,8 @@ class BookingController extends Controller
                         'date' => $returnDate->format('Y-m-d'),
                         'time' => '10:00',
                         'passenger_name' => $data['passenger_name'],
-                        'payment_origin' => 'TRUTRAVEL',
+                        'passenger_amount' => $passengerAmount, // Passed to SkyRoute
+                        'payment_method' => 'TRUTRAVEL', // Fixed key
                         'skip_aeropay' => true,
                     ]);
                     $srRetResp->throw();
@@ -161,7 +168,7 @@ class BookingController extends Controller
             ]);
 
             // -------------------------
-            // 3. Create AeroPay Transaction
+            // 4. Create AeroPay Transaction
             // -------------------------
             $aeropay = $this->createAeroPayPayment(
                 $data['user_id'],
@@ -197,7 +204,7 @@ class BookingController extends Controller
             $ttBooking->update(['transaction_code' => $transactionCode]);
 
             // -------------------------
-            // 4. Sync Partners
+            // 5. Sync Partners
             // -------------------------
             $this->updatePartnerTransactions($partnerBookings, $transactionCode, 'pending');
 

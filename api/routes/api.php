@@ -82,6 +82,8 @@ Route::prefix('aureliya')->group(function () {
 
     Route::get('/properties', [PropertyController::class, 'index']);
     Route::get('/properties/{id}', [PropertyController::class, 'show']);
+    Route::get('/countries', [PropertyController::class, 'getCountries']);
+    Route::get('/properties', [PropertyController::class, 'index']);
 
     Route::get('/amenities', [AmenityController::class, 'index']);
     Route::get('/amenities/{id}', [AmenityController::class, 'show']);

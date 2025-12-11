@@ -14,7 +14,8 @@ class Vehicle extends Model
         'type',          // SUV / Car / Bus
         'name',
         'plate_number',
-        'fare_per_km',   // NEW
+        'fare_per_km',   // Existing
+        'base_price',    // NEW: Add this field
     ];
 
     public function location()

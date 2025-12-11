@@ -16,6 +16,7 @@ class Booking extends Model
         'vehicle_id',
         'date',
         'time',
+        'passenger_amount',
         'passenger_name',
         'payment_method',
         'payment_status',
